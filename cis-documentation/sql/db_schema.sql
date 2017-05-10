@@ -135,3 +135,16 @@ CREATE TABLE `cis_tce_dsce`.`marks` (
     REFERENCES `cis_tce_dsce`.`subject` (`subject_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+ALTER TABLE `cis_tce_dsce`.`faculty` 
+DROP COLUMN `interest`,
+ADD COLUMN `education_qualification` VARCHAR(20) NOT NULL AFTER `designation`,
+ADD COLUMN `experience` INT(2) NOT NULL AFTER `education_qualification`,
+ADD COLUMN `specialization` VARCHAR(100) NOT NULL AFTER `experience`,
+DROP INDEX `student_id_UNIQUE` ;
+
+ALTER TABLE `cis_tce_dsce`.`faculty` 
+CHANGE COLUMN `phone` `phone` INT(12) NOT NULL ;
+
+ALTER TABLE `cis_tce_dsce`.`faculty` 
+CHANGE COLUMN `phone` `phone` VARCHAR(10) NOT NULL ;

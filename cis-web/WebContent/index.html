@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title>TCE-DSCE</title>
+
+<!-- Bootstrap core CSS -->
+<link href="node_modules/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet">
+
+<link href="styles/navbar-static-top.css" rel="stylesheet">
+<link href="styles/signin.css" rel="stylesheet">
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script src="scripts/cisApp.js"></script>
+</head>
+<body style="padding-top: 70px">
+	<!-- Static navbar -->
+	<div ng-app="cisApp" ng-controller="HomeController">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#about">Telecom</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">About<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#program_outcomes">Program Outcomes</a></li>
+								<li><a href="#pso">PSO</a></li>
+							</ul></li>
+						<!-- 						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Achievements <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#red">Faculty centric</a></li>
+								<li><a href="Student_centric_achievements.html">Student
+										centric</a></li>
+							</ul></li>
+ -->
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Academics<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#student_details">UG</a></li>
+								<li class="divider"></li>
+
+								<li><a href="#semester_result">Sem1</a></li>
+								<li><a href="#semester_result">Sem2</a></li>
+								<li><a href="#semester_result">Sem3</a></li>
+								<li><a href="#semester_result">Sem4</a></li>
+								<li><a href="#semester_result">Sem5</a></li>
+								<li><a href="#semester_result">Sem6</a></li>
+								<li><a href="#semester_result">Sem7</a></li>
+								<li><a href="#semester_result">Sem8</a></li>
+								<li class="divider"></li>
+
+								<li><a href="#semester_result">PG</a></li>
+								<li class="divider"></li>
+								<li><a href="#semester_result">Sem1</a></li>
+								<li><a href="#semester_result">Sem2</a></li>
+								<li><a href="#semester_result">Sem3</a></li>
+								<li><a href="#semester_result">Sem4</a></li>
+
+							</ul></li>
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">People<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#faculty" ng-click="getFacultyDetails()">Faculty</a></li>
+								<li><a href="#faculty_profile">Faculty Profiles</a></li>
+							</ul></li>
+
+
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Research<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#research_completed">Completed</a></li>
+								<li><a href="#research_on_going">On going</a></li>
+							</ul></li>
+
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Result Analysis<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#sem_result_analysis">Semester wise</a></li>
+							</ul></li>
+
+						<li class="dropdown"><a href="" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Placements<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#companies">List of Companies</a></li>
+								<li><a href="#placement_analysis">Placement Analysis</a></li>
+							</ul></li>
+
+						<li><a href="#events">Events</a></li>
+						<li class=""><a href="#feedback">Feedback</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<ng-view></ng-view>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>
