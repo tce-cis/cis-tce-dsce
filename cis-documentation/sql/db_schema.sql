@@ -148,3 +148,58 @@ CHANGE COLUMN `phone` `phone` INT(12) NOT NULL ;
 
 ALTER TABLE `cis_tce_dsce`.`faculty` 
 CHANGE COLUMN `phone` `phone` VARCHAR(10) NOT NULL ;
+
+ALTER TABLE `cis_tce_dsce`.`publication` 
+CHANGE COLUMN `publication_title` `title` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `publication_journal` `journal` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `publication_summary` `primary_author` VARCHAR(45) NOT NULL ,
+ADD COLUMN `co_authors` VARCHAR(45) NULL AFTER `primary_author`;
+
+DROP TABLE `cis_tce_dsce`.`faculty_publication`;
+
+ALTER TABLE `cis_tce_dsce`.`publication` 
+CHANGE COLUMN `publication_id` `publication_id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `cis_tce_dsce`.`publication` 
+CHANGE COLUMN `title` `title` VARCHAR(400) NOT NULL ,
+CHANGE COLUMN `journal` `journal` VARCHAR(600) NOT NULL ,
+CHANGE COLUMN `co_authors` `co_authors` VARCHAR(400) NULL DEFAULT NULL ;
+
+CREATE TABLE `cis_tce_dsce`.`program_outcomes` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `po_description` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`id`));
+
+  CREATE TABLE `cis_tce_dsce`.`subject_new` (
+  `suject_code` VARCHAR(12) NOT NULL,
+  `IA_marks` INT(2) NOT NULL,
+  `hours_per_week` INT(2) NOT NULL,
+  `total_hours` INT(2) NOT NULL,
+  `exam_marks` INT(3) NOT NULL,
+  PRIMARY KEY (`suject_code`));
+
+  DROP TABLE `cis_tce_dsce`.`student_semester`;
+  DROP TABLE `cis_tce_dsce`.`marks`;
+DROP TABLE `cis_tce_dsce`.`subject`;
+
+  CREATE TABLE `cis_tce_dsce`.`student_semester` (
+  `idstudent_semester_id` INT NOT NULL,
+  `student_usn` VARCHAR(11) NOT NULL,
+  `semester_number` INT(1) NOT NULL,
+  PRIMARY KEY (`idstudent_semester_id`),
+  INDEX `_idx` (`semester_number` ASC),
+  INDEX `student_FK_idx` (`student_usn` ASC),
+  CONSTRAINT `semester_FK`
+    FOREIGN KEY (`semester_number`)
+    REFERENCES `cis_tce_dsce`.`semester` (`semester_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `student_FK`
+    FOREIGN KEY (`student_usn`)
+    REFERENCES `cis_tce_dsce`.`student` (`usn`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+    ALTER TABLE `cis_tce_dsce`.`subject_new` 
+RENAME TO  `cis_tce_dsce`.`subject` ;
