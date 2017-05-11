@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
+import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.dao.FacultyDao;
 import org.dsce.tce.cis.dao.impl.FacultyDaoImpl;
 import org.dsce.tce.cis.service.FacultyService;
@@ -17,6 +18,13 @@ public class FacultyServiceImpl implements FacultyService {
 		facultyDao = new FacultyDaoImpl();
 		List<Faculty> facultyList = facultyDao.getFacultyDetails();
 		return facultyList;
+	}
+
+	@Override
+	public List<Publication> getPublications() throws ClassNotFoundException, SQLException {
+		facultyDao = new FacultyDaoImpl();
+		List<Publication> publicationList = facultyDao.getPublications();
+		return publicationList;
 	}
 
 }

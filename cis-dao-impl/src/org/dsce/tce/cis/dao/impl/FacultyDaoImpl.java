@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
+import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.dao.FacultyDao;
 
 public class FacultyDaoImpl implements FacultyDao {
@@ -28,8 +29,23 @@ public class FacultyDaoImpl implements FacultyDao {
 			System.out.print(faculty.getName());
 			facultyList.add(faculty);
 		}
-		// TODO: log faculty count
 		return facultyList;
+	}
+
+	@Override
+	public List<Publication> getPublications() throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
+		Statement stmt = conn.createStatement();
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.publication");
+		List<Publication> publicationList = new ArrayList<>();
+		while (rs.next()) {
+			Publication publication = new Publication(rs.getString("title"), rs.getString("journal"),
+					rs.getString("primary_author"), rs.getString("co_authors"));
+			publicationList.add(publication);
+		}
+		return publicationList;
 	}
 
 }

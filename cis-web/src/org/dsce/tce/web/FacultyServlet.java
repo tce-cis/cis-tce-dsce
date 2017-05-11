@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dsce.tce.cis.bean.Faculty;
+import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.service.FacultyService;
 import org.dsce.tce.cis.service.impl.FacultyServiceImpl;
 
@@ -19,7 +20,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class FacultyServlet
  */
-@WebServlet("/FacultyServlet")
+@WebServlet(urlPatterns = { "/faculty", "/publication" })
 public class FacultyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,12 +38,22 @@ public class FacultyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String requestUrl = request.getServletPath();
 		facultyService = new FacultyServiceImpl();
 		try {
-			List<Faculty> facultyList = facultyService.getFacultyDetails();
-			response.setContentType("application/json");
-			String facultyJson = new Gson().toJson(facultyList);
-			response.getWriter().write(facultyJson);
+
+			if (requestUrl.contains("faculty")) {
+				List<Faculty> facultyList = facultyService.getFacultyDetails();
+				response.setContentType("application/json");
+				String facultyJson = new Gson().toJson(facultyList);
+				response.getWriter().write(facultyJson);
+			} else if (requestUrl.contains("publication")) {
+				List<Publication> publicationList = facultyService.getPublications();
+				response.setContentType("application/json");
+				String publicationJson = new Gson().toJson(publicationList);
+				response.getWriter().write(publicationJson);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -57,7 +68,6 @@ public class FacultyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

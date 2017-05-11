@@ -1,5 +1,9 @@
 var cisApp = angular.module('cisApp', [ "ngRoute" ]);
 
+cisApp.config(['$locationProvider', function($locationProvider) {
+	  $locationProvider.hashPrefix('');
+	}]);
+
 cisApp.config(function($routeProvider) {
 	$routeProvider.when("/faculty", {
 		templateUrl : "views/faculty_details.html",
@@ -11,7 +15,8 @@ cisApp.config(function($routeProvider) {
 	}).when("/companies", {
 		templateUrl : "views/companies.html"
 	}).when("/faculty_profile", {
-		templateUrl : "views/faculty_profile.html"
+		templateUrl : "views/faculty_profile.html",
+		controller : "FacultyController"
 	}).when("/semester_result", {
 		templateUrl : "views/semester_result.html"
 	}).when("/about", {
@@ -43,9 +48,9 @@ cisApp.controller('HomeController', function($scope, $http) {
 		$http({
 			method : 'GET',
 			url : 'http://localhost:8080/cis-web/FacultyServlet'
-		}).success(function(data, status, headers, config) {
+		}).then(function(data, status, headers, config) {
 			$scope.person = data;
-		}).error(function(data, status, headers, config) {
+		}, function(data, status, headers, config) {
 		});
 
 	};
@@ -55,11 +60,19 @@ cisApp.controller('FacultyController', function($scope, $http) {
 
 	$http({
 		method : 'GET',
-		url : 'http://localhost:8080/cis-web/FacultyServlet'
-	}).success(function(data, status, headers, config) {
-		$scope.faculties = data;
-	}).error(function(data, status, headers, config) {
+		url : 'http://localhost:8080/cis-web/faculty'
+	}).then(function(data, status, headers, config) {
+		$scope.faculties = data.data;
+		$scope.faculty = $scope.faculties[14];
+	}, function(data, status, headers, config) {
 	});
-
+	
+	$http({
+		method : 'GET',
+		url : 'http://localhost:8080/cis-web/publication'
+	}).then(function(data, status, headers, config) {
+		$scope.publications = data.data;
+	}, function(data, status, headers, config) {
+	});
 
 });
