@@ -180,7 +180,7 @@ CREATE TABLE `cis_tce_dsce`.`program_outcomes` (
 
   DROP TABLE `cis_tce_dsce`.`student_semester`;
   DROP TABLE `cis_tce_dsce`.`marks`;
-DROP TABLE `cis_tce_dsce`.`subject`;
+  DROP TABLE `cis_tce_dsce`.`subject`;
 
   CREATE TABLE `cis_tce_dsce`.`student_semester` (
   `idstudent_semester_id` INT NOT NULL,
@@ -199,7 +199,18 @@ DROP TABLE `cis_tce_dsce`.`subject`;
     REFERENCES `cis_tce_dsce`.`student` (`usn`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+   insert into  user values('anusha', 'anu@1','123a'); //dummy data
+   insert into  user values('asha', 'ashu@1','125a');  //dummy data  
     
-    
+   CREATE TABLE `cis_tce_dsce`.`syllabus` (
+  `subjectCode` VARCHAR(40) NOT NULL,
+  `part` VARCHAR(10) NOT NULL,
+  `unit` INT UNSIGNED NOT NULL,
+  `unitTitle` VARCHAR(40) NOT NULL,
+  `UnitDescription` VARCHAR(400) NOT NULL,
+  `unitHours` INT UNSIGNED NOT NULL,
+  UNIQUE INDEX `subjectCode_UNIQUE` (`subjectCode` ASC));
+
+   
     ALTER TABLE `cis_tce_dsce`.`subject_new` 
 RENAME TO  `cis_tce_dsce`.`subject` ;
