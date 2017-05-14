@@ -2,86 +2,83 @@ package org.dsce.tce.cis.bean;
 
 public class Subject {
 
-	private String subjectName;
+	private String name;
 	private String code;
 	private String iaMarks;
-	private String examHrs;
-	private String hrsPerWeek;
-	private String totalHrs;
+	private String examHours;
+	private String hoursPerWeek;
+	private String totalHours;
 	private String examMarks;
 
 	public Subject() {
 
 	}
 
-	public Subject(String subjectName, String code, String iaMarks, String examHrs,
-			String hrsPerWeek, String totalHrs, String examMarks) {
-		this.subjectName = subjectName;
+	public Subject(String subjectName, String code, String iaMarks, String examHrs, String hrsPerWeek, String totalHrs,
+			String examMarks) {
+		this.name = subjectName;
 		this.code = code;
 		this.iaMarks = iaMarks;
-		this.examHrs = examHrs;
-		this.hrsPerWeek = hrsPerWeek;
-		this.totalHrs = totalHrs;
+		this.examHours = examHrs;
+		this.hoursPerWeek = hrsPerWeek;
+		this.totalHours = totalHrs;
 		this.examMarks = examMarks;
 	}
 
-	public String getsubjectName() {
-		return subjectName;
+	public String getName() {
+		return name;
 	}
 
-	public void setsubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getcode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setcode(String code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
-	public String getiaMarks() {
+	public String getIaMarks() {
 		return iaMarks;
 	}
 
-	public void setiaMarks(String iaMarks) {
+	public void setIaMarks(String iaMarks) {
 		this.iaMarks = iaMarks;
 	}
 
-	public String gethrsPerWeek() {
-		return hrsPerWeek;
+	public String getExamHours() {
+		return examHours;
 	}
 
-	public void sethrsPerWeek(String hrsPerWeek) {
-		this.hrsPerWeek = hrsPerWeek;
+	public void setExamHours(String examHours) {
+		this.examHours = examHours;
 	}
 
-	public String gettotalHrs() {
-		return totalHrs;
+	public String getHoursPerWeek() {
+		return hoursPerWeek;
 	}
 
-	public void settotalHrs(String totalHrs) {
-		this.totalHrs = totalHrs;
+	public void setHoursPerWeek(String hoursPerWeek) {
+		this.hoursPerWeek = hoursPerWeek;
 	}
 
-	public String getexamHrs() {
-		return examHrs;
+	public String getTotalHours() {
+		return totalHours;
 	}
 
-	public void setexamHrs(String examHrs) {
-		this.examHrs = examHrs;
+	public void setTotalHours(String totalHours) {
+		this.totalHours = totalHours;
 	}
 
-	public String getexamMarks() {
+	public String getExamMarks() {
 		return examMarks;
 	}
 
-	public void setexamMarks(String examMarks) {
+	public void setExamMarks(String examMarks) {
 		this.examMarks = examMarks;
 	}
 
 }
-
-
-

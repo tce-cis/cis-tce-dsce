@@ -35,7 +35,7 @@ public class ExcelSheetReader {
 		excelReader.readPublicationSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
-		
+
 		excelFilePath = "data/subjects.xlsx  ";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
@@ -145,62 +145,60 @@ public class ExcelSheetReader {
 		System.out.println(new Gson().toJson(publicationList));
 		JDBCUtil.persistPublicationData(publicationList);
 	}
-	
 
 	private void readSubjectDetails(Sheet subjectDetail) {
-				Iterator<Row> iterator = subjectDetail.iterator();
-				List<Subject> subjectlist = new ArrayList<>();
-				int cellCount;
-				Subject subject = new Subject();
-				while (iterator.hasNext()) {
+		Iterator<Row> iterator = subjectDetail.iterator();
+		List<Subject> subjectlist = new ArrayList<>();
+		int cellCount;
+		Subject subject = new Subject();
+		while (iterator.hasNext()) {
 
-					cellCount = 1;
+			cellCount = 1;
 
-					subject = new Subject();
-					Row nextRow = iterator.next();
-					Iterator<Cell> cellIterator = nextRow.cellIterator();
+			subject = new Subject();
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
 
-					while (cellIterator.hasNext()) {
+			while (cellIterator.hasNext()) {
 
-						Cell cell = cellIterator.next();
-						cell.setCellType(Cell.CELL_TYPE_STRING);
-						switch (cell.getCellType()) {
-						case Cell.CELL_TYPE_STRING:
-							switch (cellCount) {
-							case 1:
-								subject.setsubjectName(cell.getStringCellValue().trim());
-								break;
-							case 2:
-								subject.setcode(cell.getStringCellValue().trim());
-								break;
-							case 3:
-								subject.setiaMarks(cell.getStringCellValue().trim());
-								break;
-							case 4:
-								subject.setexamHrs(cell.getStringCellValue().trim());
-								break;
-							case 5:
-								subject.sethrsPerWeek(cell.getStringCellValue().trim());
-								break;
-							case 6:
-								subject.settotalHrs(cell.getStringCellValue().trim());
-								break;
-							case 7:
-								subject.setexamMarks(cell.getStringCellValue().trim());
-								break;
-							}
-						default:
-							break;
-						}
-						cellCount++;
-					}subjectlist.add(subject);
-					System.out.println();
+				Cell cell = cellIterator.next();
+				cell.setCellType(Cell.CELL_TYPE_STRING);
+				switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_STRING:
+					switch (cellCount) {
+					case 1:
+						subject.setName(cell.getStringCellValue().trim());
+						break;
+					case 2:
+						subject.setCode(cell.getStringCellValue().trim());
+						break;
+					case 3:
+						subject.setIaMarks(cell.getStringCellValue().trim());
+						break;
+					case 4:
+						subject.setExamHours(cell.getStringCellValue().trim());
+						break;
+					case 5:
+						subject.setHoursPerWeek(cell.getStringCellValue().trim());
+						break;
+					case 6:
+						subject.setTotalHours(cell.getStringCellValue().trim());
+						break;
+					case 7:
+						subject.setExamMarks(cell.getStringCellValue().trim());
+						break;
+					}
+				default:
+					break;
 				}
-					System.out.println(new Gson().toJson(subjectlist));
+				cellCount++;
+			}
+			subjectlist.add(subject);
+			System.out.println();
+		}
+		System.out.println(new Gson().toJson(subjectlist));
 
-					
-					JDBCUtil.persistSubjectlist(subjectlist);
-					
-				}
+		JDBCUtil.persistSubjectList(subjectlist);
+
 	}
-
+}
