@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.FacultyDao;
 
 public class FacultyDaoImpl implements FacultyDao {

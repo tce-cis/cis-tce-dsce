@@ -18,7 +18,9 @@ import org.dsce.tce.cis.service.impl.FacultyServiceImpl;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class FacultyServlet
+ * Servlet for faculty functionalities
+ * 
+ * @author Chetan Gorkal
  */
 @WebServlet(urlPatterns = { "/faculty", "/publication" })
 public class FacultyServlet extends HttpServlet {
@@ -43,11 +45,13 @@ public class FacultyServlet extends HttpServlet {
 		try {
 
 			if (requestUrl.contains("faculty")) {
+				// get faculty of the department.
 				List<Faculty> facultyList = facultyService.getFacultyDetails();
 				response.setContentType("application/json");
 				String facultyJson = new Gson().toJson(facultyList);
 				response.getWriter().write(facultyJson);
 			} else if (requestUrl.contains("publication")) {
+				// get publications of the faculty and students
 				List<Publication> publicationList = facultyService.getPublications();
 				response.setContentType("application/json");
 				String publicationJson = new Gson().toJson(publicationList);

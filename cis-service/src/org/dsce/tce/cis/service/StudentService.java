@@ -1,5 +1,6 @@
 package org.dsce.tce.cis.service;
 
+import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
 
@@ -17,7 +18,7 @@ public interface StudentService {
 	/**
 	 * Method to obtain marks card of a student by semester and usn
 	 * 
-	 * @param usn
+	 * @param usn```
 	 *            USN of the student
 	 * @param semester
 	 *            Semester number
@@ -25,5 +26,11 @@ public interface StudentService {
 	 */
 	public MarksCard getMarksCardByUsnAndSemester(String usn, byte semester);
 
-	// TODO Namana Add further required methods
+	/**
+	 * Method to save feedback submitted by a student.
+	 * 
+	 * @param feedbackReceived
+	 */
+	public void saveFeedback(Feedback feedbackReceived);
+
 }

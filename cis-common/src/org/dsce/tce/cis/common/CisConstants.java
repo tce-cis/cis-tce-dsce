@@ -1,4 +1,4 @@
-package org.dsce.tce.cis.dao.impl;
+package org.dsce.tce.cis.common;
 
 public interface CisConstants {
 

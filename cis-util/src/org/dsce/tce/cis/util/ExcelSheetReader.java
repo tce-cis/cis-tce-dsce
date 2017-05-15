@@ -16,9 +16,13 @@ import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.Subject;
 
-import com.google.gson.Gson;
-
 public class ExcelSheetReader {
+
+	JDBCUtil jdbcUtil;
+
+	public ExcelSheetReader() {
+		jdbcUtil = new JDBCUtil();
+	}
 
 	public static void main(String[] args) throws IOException {
 		ExcelSheetReader excelReader = new ExcelSheetReader();
@@ -94,8 +98,8 @@ public class ExcelSheetReader {
 			}
 			facultyList.add(faculty);
 		}
-		System.out.println(new Gson().toJson(facultyList));
-		JDBCUtil.persistFacultyData(facultyList);
+		// System.out.println(new Gson().toJson(facultyList));
+		jdbcUtil.persistFacultyData(facultyList);
 	}
 
 	private void readPublicationSheet(Sheet publicationsSheet) {
@@ -142,8 +146,8 @@ public class ExcelSheetReader {
 			publicationList.add(publication);
 			System.out.println();
 		}
-		System.out.println(new Gson().toJson(publicationList));
-		JDBCUtil.persistPublicationData(publicationList);
+		// System.out.println(new Gson().toJson(publicationList));
+		jdbcUtil.persistPublicationData(publicationList);
 	}
 
 	private void readSubjectDetails(Sheet subjectDetail) {
@@ -196,9 +200,9 @@ public class ExcelSheetReader {
 			subjectlist.add(subject);
 			System.out.println();
 		}
-		System.out.println(new Gson().toJson(subjectlist));
+		// System.out.println(new Gson().toJson(subjectlist));
 
-		JDBCUtil.persistSubjectList(subjectlist);
+		jdbcUtil.persistSubjectList(subjectlist);
 
 	}
 }

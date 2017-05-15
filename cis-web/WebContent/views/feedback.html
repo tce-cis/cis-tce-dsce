@@ -1,9 +1,116 @@
-<div>
-<form name="loginForm" method="post" action="feedback">
-	data1: <input type="text" name="username" /> <br /> data2: <input
-		type="text" name="password" /> <br />data2: <input type="text"
-		name="password" /> <br />data2: <input type="text" name="password" />
-	<br />data2: <input type="text" name="password" /> <br /> <input
-		type="submit" value="Login" />
-</form>
+<div class="container">
+	<form class="form-horizontal" ng-controller="FeedbackController">
+		<div class="form-group">
+			<label for="teaching" class="text-left col-sm-8 control-label">The
+				teaching of the faculty is:</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="teaching"
+					ng-model="feedback.teaching">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="timeUtilization" class="text-left col-sm-8 control-label">Does
+				the faculty come to the class in time and engages the class until
+				the completion of allotted hour?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="timeUtilization"
+					ng-model="feedback.timeUtilization">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="contentDelivery" class="text-left col-sm-8 control-label">Is
+				the faculty's expression clear and presentation systematic?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="contentDelivery"
+					ng-model="feedback.contentDelivery">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="regularity" class="text-left col-sm-8 control-label">Does
+				the faculty regularly engage the class and take attendance?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="regularity"
+					ng-model="feedback.regularity">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="practicalAspect" class="text-left col-sm-8 control-label">Does
+				the faculty give and explain the practical aspects of the topic?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="practicalAspect"
+					ng-model="feedback.practicalAspect">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="doubtsClarification"
+				class="text-left col-sm-8 control-label">Does the faculty
+				encourages questions from students and clarifies the doubts?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="doubtsClarification"
+					ng-model="feedback.doubtsClarification">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="evaluation" class="text-left col-sm-8 control-label">Is
+				the teacher fair in evaluating internal tests/lab records/drawing
+				sheets?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="evaluation"
+					ng-model="feedback.evaluation">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="availability" class="text-left col-sm-8 control-label">Is
+				the faculty available for guidance during the college hours?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="availability"
+					ng-model="feedback.availability">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="syllabusCoverage"
+				class="text-left col-sm-8 control-label">Does the faculty
+				cover the syllabus as per the lesson planning?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="syllabusCoverage"
+					ng-model="feedback.syllabusCoverage">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="dressCode" class="text-left col-sm-8 control-label">Dress
+				Code?</label>
+			<div class="col-sm-2">
+				<select class="form-control" id="dressCode"
+					ng-model="feedback.dressCode">
+					<option ng-repeat="feedbackInput in feedbackInputs">{{feedbackInput}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-sm-8"></div>
+		<div class="col-sm-4">
+			<button type="submit" ng-click="submitFeedback(feedback)"
+				class="btn btn-default btn-lg">Submit Feedback</button>
+		</div>
+	</form>
 </div>

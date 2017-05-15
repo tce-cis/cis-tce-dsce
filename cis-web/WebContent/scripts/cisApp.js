@@ -1,8 +1,8 @@
 var cisApp = angular.module('cisApp', [ "ngRoute" ]);
 
-cisApp.config(['$locationProvider', function($locationProvider) {
-	  $locationProvider.hashPrefix('');
-	}]);
+cisApp.config([ '$locationProvider', function($locationProvider) {
+	$locationProvider.hashPrefix('');
+} ]);
 
 cisApp.config(function($routeProvider) {
 	$routeProvider.when("/faculty", {
@@ -32,7 +32,8 @@ cisApp.config(function($routeProvider) {
 	}).when("/research_on_going", {
 		templateUrl : "views/research_on_going.html"
 	}).when("/feedback", {
-		templateUrl : "views/feedback.html"
+		templateUrl : "views/feedback.html",
+		controller : "FeedbackController"
 	}).when("/sem_result_analysis", {
 		templateUrl : "views/sem_result_analysis.html"
 	}).when("/placement_analysis", {
@@ -44,29 +45,19 @@ cisApp.config(function($routeProvider) {
 
 cisApp.controller('HomeController', function($scope, $http) {
 
-	$scope.getFacultyDetails = function() {
-		$http({
-			method : 'GET',
-			url : 'http://localhost:8080/cis-web/FacultyServlet'
-		}).then(function(data, status, headers, config) {
-			$scope.person = data;
-		}, function(data, status, headers, config) {
-		});
-
-	};
 });
 
 cisApp.controller('FacultyController', function($scope, $http) {
 
 	$http({
 		method : 'GET',
-		url : 'http://localhost:8080/cis-web/faculty'
+		url : '/cis-web/faculty'
 	}).then(function(data, status, headers, config) {
 		$scope.faculties = data.data;
 		$scope.faculty = $scope.faculties[14];
 	}, function(data, status, headers, config) {
 	});
-	
+
 	$http({
 		method : 'GET',
 		url : 'http://localhost:8080/cis-web/publication'
@@ -76,3 +67,54 @@ cisApp.controller('FacultyController', function($scope, $http) {
 	});
 
 });
+cisApp
+		.controller(
+				'FeedbackController',
+				function($scope, $http) {
+
+					$scope.feedbackInputs = [ '5-Excellent', '4-Very Good',
+							'3-Good', '2-Satisfactory', '1-Poor' ];
+					$scope.feedback = {
+						'teaching' : $scope.feedbackInputs[0],
+						'timeUtilization' : $scope.feedbackInputs[0],
+						'contentDelivery' : $scope.feedbackInputs[0],
+						'regularity' : $scope.feedbackInputs[0],
+						'practicalAspect' : $scope.feedbackInputs[0],
+						'doubtsClarification' : $scope.feedbackInputs[0],
+						'evaluation' : $scope.feedbackInputs[0],
+						'availability' : $scope.feedbackInputs[0],
+						'syllabusCoverage' : $scope.feedbackInputs[0],
+						'dressCode' : $scope.feedbackInputs[0]
+					};
+
+					$scope.submitFeedback = function() {
+
+						$http
+								.post('/cis-web/feedback', JSON.stringify($scope.feedback))
+								.then(
+										function(data, status, headers, config) {
+											$scope.message = "Your feedback has been submitted successfully. Thank you";
+										},
+										function(data, status, headers, config) {
+										});
+
+						$http({
+							method : 'POST',
+							url : '/cis-web/feedback',
+							data : {
+								'feedback' : $scope.feedback
+							},
+							headers : {
+								'Content-Type' : 'application/json'
+							}
+						})
+								.then(
+										function(response, status, headers,
+												config) {
+											$scope.message = "Your feedback has been submitted successfully. Thank you";
+										},
+										function(response, status, headers,
+												config) {
+										});
+					}
+				});
