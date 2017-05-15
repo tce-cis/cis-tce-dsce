@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.Subject;
+import org.dsce.tce.cis.bean.Syllabus;
 
 public class ExcelSheetReader {
 
@@ -205,4 +206,83 @@ public class ExcelSheetReader {
 		jdbcUtil.persistSubjectList(subjectlist);
 
 	}
+	
+	/////////
+	
+	public class ExcelReaderSyllabus {
+
+		public void main(String[] args) throws IOException {
+			ExcelReaderSyllabus excelReaderSyllabus = new ExcelReaderSyllabus();
+			String excelFilePath = "data/subjects.xlsx";
+			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+
+			Workbook workbook = new XSSFWorkbook(inputStream);
+			excelReaderSyllabus.readSyllabusDetailsSheet1(workbook.getSheetAt(1));
+			workbook.close();
+			inputStream.close();
+
+		}
+
+		private void readSyllabusDetailsSheet1(Sheet sheetAt) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void readSyllabusDetailsSheet(Sheet syllabusSheet) {
+			Iterator<Row> iterator = syllabusSheet.iterator();
+			List<Syllabus> syllabusList = new ArrayList<>();
+			int cellCount;
+			Syllabus syllabus = new Syllabus();
+			while (iterator.hasNext()) {
+
+				cellCount = 1;
+
+				syllabus= new Syllabus();
+				Row nextRow = iterator.next();
+				Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+				while (cellIterator.hasNext()) {
+
+					Cell cell = cellIterator.next();
+					cell.setCellType(Cell.CELL_TYPE_STRING);
+					switch (cell.getCellType()) {
+					case Cell.CELL_TYPE_STRING:
+						switch (cellCount) {
+						case 1:
+							syllabus.setName(cell.getStringCellValue().trim());
+							break;
+						case 2:
+							syllabus.setpart(cell.getStringCellValue().trim());
+							break;
+						case 3:
+							syllabus.setunit(cell.getStringCellValue().trim());
+							break;
+						case 4:
+							syllabus.setunitTitle(cell.getStringCellValue().trim());
+							break;
+						case 5:
+							syllabus.setUnitDescription(cell.getStringCellValue().trim());
+							break;
+						case 6:
+							syllabus.setunitHours(cell.getStringCellValue().trim());
+						break;
+						}
+					default:
+						break;
+					}
+					cellCount++;
+				}
+				syllabusList.add(syllabus);
+				for (Syllabus member : syllabusList) {
+					System.out.println(member.getName());
+				}
+				System.out.println();
+			}
+			//System.out.println(new Gson().toJson(syllabusList));
+
+			// Caution(Chetan): Never run below method again
+			// JDBCUtil.persistFacultyData(facultyList);
+		}
 }
+}
+
