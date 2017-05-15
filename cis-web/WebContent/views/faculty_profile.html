@@ -22,7 +22,7 @@
 			<img class="featurette-image img-fluid mx-auto"
 				data-src="holder.js/500x500/auto" alt="500x500"
 				style="width: 500px; height: 500px;"
-				src="images/faculty/santhosh_b.jpg" data-holder-rendered="true">
+				src="images/faculty/faculty.name.jpg" data-holder-rendered="true">
 		</div>
 	</div>
 	<hr class="featurette-divider">
@@ -38,19 +38,11 @@
 	</div>
 	<div class="clearfix"></div>
 
-	<table class="table table-striped table-bordered">
-		<tr>
-			<th>Title</th>
-			<th>Journal</th>
-			<th>Faculty Author</th>
-			<th>Co-Authors</th>
-		</tr>
-		<tr ng-repeat="publication in publications | filter:topic">
-			<td>{{ publication.title }}</td>
-			<td>{{ publication.journal }}</td>
-			<td>{{ publication.primaryAuthor }}</td>
-			<td>{{ publication.coAuthors }}</td>
-		</tr>
-	</table>
+	<tr ng-repeat="publication in publications | filter:topic">
+           
+	   <blockquote><p class="text-center"><strong>{{ publication.title }}</strong>
+                       <em>{{ publication.journal }}</em></p>
+           <footer>by <cite title="Source Title">{{ publication.primaryAuthor }}{{ publication.coAuthors }}</cite></footer>
+</blockquote></tr>
 
 </div>
