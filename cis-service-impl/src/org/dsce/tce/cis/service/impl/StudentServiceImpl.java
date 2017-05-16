@@ -1,5 +1,7 @@
-package org.dsce.tce.cis.service.impl;
+package org.dsce.tce.cis.service.implimport java.sql.SQLException;
+import java.util.List;
 
+import org.dsce.tce.cis.bean.Faculty;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -8,8 +10,10 @@ import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.dao.StudentDao;
+import org.dsce.tce.cis.bean.Syllabus;
+ import org.dsce.tce.cis.dao.StudentDao;
 import org.dsce.tce.cis.dao.impl.StudentDaoImpl;
+import org.dsce.tce.cis.dao.impl.SyllabusDaoImpl;
 import org.dsce.tce.cis.service.StudentService;
 
 public class StudentServiceImpl implements StudentService {
@@ -49,6 +53,12 @@ public class StudentServiceImpl implements StudentService {
 		studentDao = new StudentDaoImpl();
 		List<Company> companylist = studentDao.getCompaniesList();
 		return companylist;
+	}
+
+	@Override
+	public List<Syllabus> getSyllabusDetails() throws ClassNotFoundException, SQLException {
+		List<Syllabus> syllabusList = studentDao.getSyllabusDetails();
+		return syllabusList;
 	}
 
 }
