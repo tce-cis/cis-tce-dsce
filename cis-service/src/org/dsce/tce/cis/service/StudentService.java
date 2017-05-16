@@ -1,8 +1,12 @@
 package org.dsce.tce.cis.service;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
+import org.dsce.tce.cis.bean.Subject;
 
 public interface StudentService {
 
@@ -32,5 +36,7 @@ public interface StudentService {
 	 * @param feedbackReceived
 	 */
 	public void saveFeedback(Feedback feedbackReceived);
+
+	public List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException;
 
 }
