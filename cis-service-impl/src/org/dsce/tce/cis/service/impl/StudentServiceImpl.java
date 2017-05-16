@@ -3,7 +3,7 @@ package org.dsce.tce.cis.service.impl;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.dsce.tce.cis.bean.Faculty;
+import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
@@ -42,6 +42,13 @@ public class StudentServiceImpl implements StudentService {
 		studentDao = new StudentDaoImpl();
 		List<Subject> subjectlist = studentDao.getSubjectDetail();
 		return subjectlist;
+	}
+
+	@Override
+	public List<Company> getCompaniesList() throws ClassNotFoundException, SQLException {
+		studentDao = new StudentDaoImpl();
+		List<Company> companylist = studentDao.getCompaniesList();
+		return companylist;
 	}
 
 }

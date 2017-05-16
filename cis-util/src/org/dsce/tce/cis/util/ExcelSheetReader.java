@@ -30,14 +30,14 @@ public class ExcelSheetReader {
 		String excelFilePath = "data/faculty_details.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 		Workbook workbook = new XSSFWorkbook(inputStream);
-		excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
+		// excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
 		excelFilePath = "data/publication.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		excelReader.readPublicationSheet(workbook.getSheetAt(0));
+		// excelReader.readPublicationSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
@@ -206,9 +206,9 @@ public class ExcelSheetReader {
 		jdbcUtil.persistSubjectList(subjectlist);
 
 	}
-	
+
 	/////////
-	
+
 	public class ExcelReaderSyllabus {
 
 		public void main(String[] args) throws IOException {
@@ -225,7 +225,7 @@ public class ExcelSheetReader {
 
 		private void readSyllabusDetailsSheet1(Sheet sheetAt) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		private void readSyllabusDetailsSheet(Sheet syllabusSheet) {
@@ -237,7 +237,7 @@ public class ExcelSheetReader {
 
 				cellCount = 1;
 
-				syllabus= new Syllabus();
+				syllabus = new Syllabus();
 				Row nextRow = iterator.next();
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
 
@@ -265,7 +265,7 @@ public class ExcelSheetReader {
 							break;
 						case 6:
 							syllabus.setunitHours(cell.getStringCellValue().trim());
-						break;
+							break;
 						}
 					default:
 						break;
@@ -278,11 +278,10 @@ public class ExcelSheetReader {
 				}
 				System.out.println();
 			}
-			//System.out.println(new Gson().toJson(syllabusList));
+			// System.out.println(new Gson().toJson(syllabusList));
 
 			// Caution(Chetan): Never run below method again
 			// JDBCUtil.persistFacultyData(facultyList);
 		}
+	}
 }
-}
-

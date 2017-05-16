@@ -89,15 +89,16 @@ public class JDBCUtil {
 	public void persistSubjectList(List<Subject> SubjectDetail) {
 		try {
 			initDBConnections();
+
 			for (Subject subject : SubjectDetail) {
-				String sqlQueryString = "INSERT INTO cis_tce_dsce.Subject ( name, code, IA_marks, exam_hours, hours_per_week, total_hours, exam_marks) "
+				String sqlQueryString = "INSERT INTO cis_tce_dsce.Subject ( subjectName, code, iaMarks, examHours, hrsPerWeek, totalHrs, examMarks) "
 						+ "VALUES ('" + subject.getName() + "', '" + subject.getCode() + "','"
 						+ Integer.parseInt(subject.getIaMarks()) + "'," + Integer.parseInt(subject.getExamHours())
 						+ ",'" + Integer.parseInt(subject.getHoursPerWeek()) + "','"
 						+ Integer.parseInt(subject.getTotalHours()) + "'," + Integer.parseInt(subject.getExamMarks())
 						+ "); ";
 				// System.out.println(sqlQueryString);
-				// stmt.executeUpdate(sqlQueryString);
+				sqlStatement.executeUpdate(sqlQueryString);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -117,6 +118,7 @@ public class JDBCUtil {
 			}
 		}
 	}
+
 	/////
 	public class JDBCUtilSyllabus {
 		// JDBC driver name and database URL
@@ -147,9 +149,9 @@ public class JDBCUtil {
 
 					String sql = "INSERT INTO cis_tce_dsce.syllabus ( subjectCode, part, unit, unitTitle, UnitDiscription, unitHours) "
 							+ "VALUES ('" + syllabus.getName() + "', '" + syllabus.getpart() + "','"
-							+ syllabus.getunit() + "'," + Integer.parseInt(syllabus.getunitTitle())
-							+ ",'" + syllabus.getUnitDescription() + "','" + syllabus.getunitHours() + "',";
-							
+							+ syllabus.getunit() + "'," + Integer.parseInt(syllabus.getunitTitle()) + ",'"
+							+ syllabus.getUnitDescription() + "','" + syllabus.getunitHours() + "',";
+
 					stmt.executeUpdate(sql);
 				}
 				System.out.println("Inserted records into the table...");
@@ -175,6 +177,6 @@ public class JDBCUtil {
 				} // end finally try
 			} // end try
 			System.out.println("Goodbye!");
-			}// end main
-}
+		}// end main
+	}
 }

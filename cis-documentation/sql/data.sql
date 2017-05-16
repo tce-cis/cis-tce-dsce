@@ -270,3 +270,16 @@ INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualificati
 INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone) VALUES ('Pramodh H J', 'Instructor','NA',0,'NA','NA',0); 
 INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone) VALUES ('Santhosh B', 'Assistant Instructor','NA',0,'NA','NA',0); 
 INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone) VALUES ('Arathi B K', 'Office Assistant','NA',0,'NA','NA',0); 
+
+
+
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('Mu Sigma');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('Infosys');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('Accenture');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('CTS');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('Tech Mahindra');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('L&T InfoTech');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('MICROLAND');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('HP');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('CAPGEMINI');
+INSERT INTO `cis_tce_dsce`.`companies`(`Company`)VALUES('CGI');

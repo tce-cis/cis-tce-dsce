@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
-import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.common.CisConstants;
@@ -54,21 +54,38 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException {
-		
+
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
 		Statement stmt = conn.createStatement();
 
-		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.Subject");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Subject");
 		List<Subject> subjectlist = new ArrayList<>();
 		while (rs.next()) {
-			Subject subject = new Subject(rs.getString("name"), rs.getString("code"),
-					rs.getString(" IA_marks"), rs.getString("exam_hours"), rs.getString("hours_per_week"), rs.getString("total_hours"), rs.getString("exam_marks"));
+			Subject subject = new Subject(rs.getString("subjectName"), rs.getString("code"), rs.getString("iaMarks"),
+					rs.getString("examHours"), rs.getString("hrsPerWeek"), rs.getString("totalHrs"),
+					rs.getString("examMarks"));
 			subjectlist.add(subject);
 		}
 		return subjectlist;
-		
-		
+
+	}
+
+	@Override
+	public List<Company> getCompaniesList() throws SQLException, ClassNotFoundException {
+
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
+		Statement stmt = conn.createStatement();
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Companies");
+		List<Company> companylist = new ArrayList<>();
+		while (rs.next()) {
+			Company company = new Company(rs.getString("company"));
+			companylist.add(company);
+		}
+		return companylist;
+
 	}
 
 }
