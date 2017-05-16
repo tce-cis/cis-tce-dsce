@@ -7,6 +7,7 @@ import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
+import org.dsce.tce.cis.bean.Syllabus;
 
 public interface StudentService {
 
@@ -38,5 +39,7 @@ public interface StudentService {
 	public void saveFeedback(Feedback feedbackReceived);
 
 	public List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException;
+
+	List<Syllabus> getSyllabusDetails() throws ClassNotFoundException, SQLException;
 
 }
