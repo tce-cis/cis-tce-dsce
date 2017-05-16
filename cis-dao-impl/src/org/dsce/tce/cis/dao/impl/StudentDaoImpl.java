@@ -11,7 +11,9 @@ import java.util.List;
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
+import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.StudentDetails;
+import org.dsce.tce.cis.bean.Syllabus;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.StudentDao;
@@ -85,6 +87,30 @@ public class StudentDaoImpl implements StudentDao {
 			companylist.add(company);
 		}
 		return companylist;
+
+	}
+
+	@Override
+	public List<Syllabus> getSyllabusDetails() {
+		List<Syllabus> syllabusList = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection dbConnection = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER,
+					CisConstants.PASS);
+			Statement sqlStatement = dbConnection.createStatement();
+			String queryString = "SELECT * FROM SUBJECT";
+			System.out.println(queryString);
+			ResultSet rs = sqlStatement.executeQuery(queryString);
+
+			while (rs.next()) {
+				Syllabus publication = new Syllabus();
+				syllabusList.add(publication);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return syllabusList;
 
 	}
 

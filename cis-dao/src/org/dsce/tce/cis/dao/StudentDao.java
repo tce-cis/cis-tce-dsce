@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dsce.tce.cis.bean.Company;
+import java.util.List;
+
 import org.dsce.tce.cis.bean.Feedback;
 import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
+import org.dsce.tce.cis.bean.Syllabus;
 
 /**
  * 
@@ -25,5 +28,7 @@ public interface StudentDao {
 	List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException;
 
 	List<Company> getCompaniesList() throws SQLException, ClassNotFoundException;
+
+	List<Syllabus> getSyllabusDetails();
 
 }
