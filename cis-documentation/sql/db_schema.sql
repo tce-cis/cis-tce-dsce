@@ -210,6 +210,12 @@ CREATE TABLE `cis_tce_dsce`.`program_outcomes` (
   `UnitDescription` VARCHAR(400) NOT NULL,
   `unitHours` INT UNSIGNED NOT NULL,
   UNIQUE INDEX `subjectCode_UNIQUE` (`subjectCode` ASC));
+  
+  CREATE TABLE `cis_tce_dsce`.`companies` (
+  `Company_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Company` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Company_id`));
+
 
    
     ALTER TABLE `cis_tce_dsce`.`subject_new` 
