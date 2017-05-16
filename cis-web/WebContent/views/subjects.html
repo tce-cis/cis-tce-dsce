@@ -1,0 +1,41 @@
+<div class="container-fluid">
+
+	<div class="page-header col-lg-6">
+		<h1>
+			Subjects <small>Telecom Department</small>
+		</h1>
+	</div>
+	<div class="input-group input-group-lg">
+		<span class="input-group-addon" id="sizing-addon1">Search
+			Subject</span> <input type="text" class="form-contdol"
+			placeholder="Enter the subject name" aria-describedby="sizing-addon1"
+			ng-model='subjectName'>
+	</div>
+	<div>
+		<div>
+			<table class="table">
+				<tr>
+					<th>Subject Name</th>
+					<th>Subject Code</th>
+					<th>IA marks</th>
+					<th>Exam Marks</th>
+					<th>Exam hours</th>
+					<th>Hours per week</th>
+					<th>Total Hours</th>
+				</tr>
+				<tr ng-repeat="subject in subjects | filter: subjectName">
+					<td>{{ subject.name }}</td>
+					<td>{{ subject.code }}</td>
+					<td>{{ subject.iaMarks }}</td>
+					<td>{{ subject.examMarks }}</td>
+					<td>{{ subject.examHours }}</td>
+					<td>{{ subject.hoursPerWeek }}</td>
+					<td>{{ subject.totalHours }}</td>
+
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+</div>

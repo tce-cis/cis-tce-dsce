@@ -13,7 +13,8 @@ cisApp.config(function($routeProvider) {
 	}).when("/about", {
 		templateUrl : "views/about.html"
 	}).when("/companies", {
-		templateUrl : "views/companies.html"
+		templateUrl : "views/companies.html",
+		controller : "CompanyController"
 	}).when("/faculty_profile", {
 		templateUrl : "views/faculty_profile.html",
 		controller : "FacultyController"
@@ -36,6 +37,9 @@ cisApp.config(function($routeProvider) {
 		controller : "FeedbackController"
 	}).when("/sem_result_analysis", {
 		templateUrl : "views/sem_result_analysis.html"
+	}).when("/subjects", {
+		templateUrl : "views/subjects.html",
+		controller : "SubjectController"
 	}).when("/placement_analysis", {
 		templateUrl : "views/placement_analysis.html"
 	}).otherwise({
@@ -44,6 +48,26 @@ cisApp.config(function($routeProvider) {
 });
 
 cisApp.controller('HomeController', function($scope, $http) {
+});
+
+cisApp.controller('SubjectController', function($scope, $http) {
+	$http({
+		method : 'GET',
+		url : '/cis-web/subjects'
+	}).then(function(data, status, headers, config) {
+		$scope.subjects = data.data;
+	}, function(data, status, headers, config) {
+	});
+
+});
+cisApp.controller('CompanyController', function($scope, $http) {
+	$http({
+		method : 'GET',
+		url : '/cis-web/companies'
+	}).then(function(data, status, headers, config) {
+		$scope.companies = data.data;
+	}, function(data, status, headers, config) {
+	});
 
 });
 
@@ -90,7 +114,8 @@ cisApp
 					$scope.submitFeedback = function() {
 
 						$http
-								.post('/cis-web/feedback', JSON.stringify($scope.feedback))
+								.post('/cis-web/feedback',
+										JSON.stringify($scope.feedback))
 								.then(
 										function(data, status, headers, config) {
 											$scope.message = "Your feedback has been submitted successfully. Thank you";
