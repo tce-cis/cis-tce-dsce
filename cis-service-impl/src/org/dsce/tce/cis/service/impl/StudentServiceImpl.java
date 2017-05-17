@@ -1,7 +1,5 @@
-package org.dsce.tce.cis.service.implimport java.sql.SQLException;
-import java.util.List;
+package org.dsce.tce.cis.service.impl;
 
-import org.dsce.tce.cis.bean.Faculty;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,9 +9,8 @@ import org.dsce.tce.cis.bean.MarksCard;
 import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.Syllabus;
- import org.dsce.tce.cis.dao.StudentDao;
+import org.dsce.tce.cis.dao.StudentDao;
 import org.dsce.tce.cis.dao.impl.StudentDaoImpl;
-import org.dsce.tce.cis.dao.impl.SyllabusDaoImpl;
 import org.dsce.tce.cis.service.StudentService;
 
 public class StudentServiceImpl implements StudentService {

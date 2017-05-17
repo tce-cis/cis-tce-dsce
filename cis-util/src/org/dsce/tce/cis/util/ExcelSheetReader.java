@@ -30,7 +30,7 @@ public class ExcelSheetReader {
 		String excelFilePath = "data/faculty_details.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 		Workbook workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
+		excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
@@ -44,7 +44,7 @@ public class ExcelSheetReader {
 		excelFilePath = "data/subjects.xlsx  ";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		excelReader.readSubjectDetails(workbook.getSheetAt(0));
+		// excelReader.readSubjectDetails(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
@@ -90,6 +90,9 @@ public class ExcelSheetReader {
 						break;
 					case 7:
 						faculty.setPhoneNumber(cell.getStringCellValue().trim());
+						break;
+					case 8:
+						faculty.setSalutation(cell.getStringCellValue().trim());
 						break;
 					}
 				default:

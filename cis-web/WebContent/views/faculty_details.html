@@ -14,9 +14,9 @@
 	<div ng-repeat="faculty in faculties | filter: name">
 		<div class="clearfix" ng-if="$index % 3 == 0"></div>
 		<div class="col-lg-4 text-center">
-			<img class="img-circle" src="images/faculty/santhosh_b.jpg"
-				alt="Generic placeholder image" width="140" height="140">
-			<h3>{{ faculty.name }}</h3>
+			<img class="img-circle" src="images/faculty/{{ faculty.imageName }}"
+				alt="faculty image not available" width="140" height="140">
+			<h3 class="text-capitalize">{{faculty.salutation}} {{faculty.name }}</h3>
 			<p>
 				<strong>Education</strong> {{ faculty.educationalQualification }}
 			</p>

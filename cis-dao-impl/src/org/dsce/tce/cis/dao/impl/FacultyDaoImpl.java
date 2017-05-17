@@ -26,7 +26,7 @@ public class FacultyDaoImpl implements FacultyDao {
 		while (rs.next()) {
 			Faculty faculty = new Faculty(rs.getString("full_name"), rs.getString("designation"),
 					rs.getString("education_qualification"), rs.getString("experience"), rs.getString("specialization"),
-					rs.getString("email"), rs.getString("phone"));
+					rs.getString("email"), rs.getString("phone"), rs.getString("salutation"));
 			System.out.print(faculty.getName());
 			facultyList.add(faculty);
 		}

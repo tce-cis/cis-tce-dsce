@@ -56,7 +56,15 @@ public class FacultyServlet extends HttpServlet {
 				response.setContentType("application/json");
 				String publicationJson = new Gson().toJson(publicationList);
 				response.getWriter().write(publicationJson);
-			}
+			} /*
+				 * 
+				 * else if (requestUrl.contains("faculty_details")) { // get
+				 * publications of the faculty by id List<Publication>
+				 * publicationList = facultyService.getPublications();
+				 * response.setContentType("application/json"); String
+				 * publicationJson = new Gson().toJson(publicationList);
+				 * response.getWriter().write(publicationJson); }
+				 */
 
 		} catch (SQLException e) {
 			e.printStackTrace();

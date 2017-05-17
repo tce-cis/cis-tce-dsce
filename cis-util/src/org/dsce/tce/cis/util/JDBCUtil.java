@@ -24,13 +24,13 @@ public class JDBCUtil {
 			initDBConnections();
 
 			for (Faculty faculty : facultyList) {
-				String queryString = "INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone) "
+				String queryString = "INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone, salutation) "
 						+ "VALUES ('" + faculty.getName() + "', '" + faculty.getDesignation() + "','"
 						+ faculty.getEducationalQualification() + "'," + Integer.parseInt(faculty.getExperienceYears())
 						+ ",'" + faculty.getSpecialization() + "','" + faculty.getEmailId() + "',"
-						+ faculty.getPhoneNumber() + "); ";
-				// System.out.println(queryString);
-				// sqlStatement.executeUpdate(queryString);
+						+ faculty.getPhoneNumber() + ",'" + faculty.getSalutation() + "'); ";
+				System.out.println(queryString);
+				sqlStatement.executeUpdate(queryString);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();

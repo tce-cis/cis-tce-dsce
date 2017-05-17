@@ -42,6 +42,8 @@ cisApp.config(function($routeProvider) {
 		controller : "SubjectController"
 	}).when("/placement_analysis", {
 		templateUrl : "views/placement_analysis.html"
+	}).when("/syllabus", {
+		templateUrl : "views/syllabus.html"
 	}).otherwise({
 		templateUrl : "views/about.html"
 	});
@@ -76,11 +78,19 @@ cisApp.controller('FacultyController', function($scope, $http) {
 	$http({
 		method : 'GET',
 		url : '/cis-web/faculty'
-	}).then(function(data, status, headers, config) {
-		$scope.faculties = data.data;
-		$scope.faculty = $scope.faculties[14];
-	}, function(data, status, headers, config) {
-	});
+	}).then(
+			function(data, status, headers, config) {
+				var facultyList = data.data;
+				for (var i = 0; i < facultyList.length; i++) {
+					var facultyName = facultyList[i].name;
+					facultyList[i].imageName = facultyName.trim().replace(/ /g, '_').toLowerCase()
+							+ ".jpg";
+				}
+				$scope.faculties = facultyList;
+				$scope.faculty = $scope.faculties[14];
+				$scope.topic = $scope.faculty.name;
+			}, function(data, status, headers, config) {
+			});
 
 	$http({
 		method : 'GET',
@@ -90,6 +100,12 @@ cisApp.controller('FacultyController', function($scope, $http) {
 	}, function(data, status, headers, config) {
 	});
 
+	/*
+	 * $scope.getFacultyById = function() { $http({ method : 'GET', url :
+	 * 'cis-web/faculty_details?facultyId=' + $scope.facultyId
+	 * }).then(function(data, status, headers, config) { $scope.faculty =
+	 * data.data; }, function(data, status, headers, config) { }); }
+	 */
 });
 cisApp
 		.controller(

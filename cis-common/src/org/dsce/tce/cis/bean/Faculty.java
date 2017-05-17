@@ -9,13 +9,14 @@ public class Faculty {
 	private String specialization;
 	private String emailId;
 	private String phoneNumber;
+	private String salutation;
 
 	public Faculty() {
 
 	}
 
 	public Faculty(String name, String designation, String educationalQualification, String experienceYears,
-			String specialization, String emailId, String phone) {
+			String specialization, String emailId, String phone, String salutation) {
 		this.name = name;
 		this.designation = designation;
 		this.educationalQualification = educationalQualification;
@@ -23,6 +24,7 @@ public class Faculty {
 		this.specialization = specialization;
 		this.emailId = emailId;
 		this.phoneNumber = phone;
+		this.salutation = salutation;
 	}
 
 	public String getName() {
@@ -79,6 +81,14 @@ public class Faculty {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getSalutation() {
+		return salutation;
+	}
+
+	public void setSalutation(String salutation) {
+		this.salutation = salutation;
 	}
 
 }
