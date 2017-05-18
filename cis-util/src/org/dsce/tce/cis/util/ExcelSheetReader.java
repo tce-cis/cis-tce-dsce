@@ -1,4 +1,4 @@
-package org.dsce.tce.cis.util;
+   package org.dsce.tce.cis.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.Syllabus;
 
@@ -44,9 +45,16 @@ public class ExcelSheetReader {
 		excelFilePath = "data/subjects.xlsx  ";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readSubjectDetails(workbook.getSheetAt(0));
+		//excelReader.readSubjectDetails(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
+		
+		excelFilePath = "data/research.xlsx  ";
+		inputStream = new FileInputStream(new File(excelFilePath));
+		workbook = new XSSFWorkbook(inputStream);
+		excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
+		workbook.close();
+		inputStream.close(); 
 
 	}
 
@@ -103,7 +111,7 @@ public class ExcelSheetReader {
 			facultyList.add(faculty);
 		}
 		// System.out.println(new Gson().toJson(facultyList));
-		jdbcUtil.persistFacultyData(facultyList);
+		//jdbcUtil.persistFacultyData(facultyList);
 	}
 
 	private void readPublicationSheet(Sheet publicationsSheet) {
@@ -151,7 +159,7 @@ public class ExcelSheetReader {
 			System.out.println();
 		}
 		// System.out.println(new Gson().toJson(publicationList));
-		jdbcUtil.persistPublicationData(publicationList);
+		//jdbcUtil.persistPublicationData(publicationList);
 	}
 
 	private void readSubjectDetails(Sheet subjectDetail) {
@@ -206,30 +214,62 @@ public class ExcelSheetReader {
 		}
 		// System.out.println(new Gson().toJson(subjectlist));
 
-		jdbcUtil.persistSubjectList(subjectlist);
-
+		//jdbcUtil.persistSubjectList(subjectlist);
 	}
+		private void readResearchDetailsSheet(Sheet researchSheet) {
+			Iterator<Row> iterator = researchSheet.iterator();
+			List<Research> researchList = new ArrayList<>();
+			int cellCount;
+			Research research = new Research();
+			while (iterator.hasNext()) {
 
-	/////////
+				cellCount = 1;
 
-	public class ExcelReaderSyllabus {
+				research = new Research();
+				Row nextRow = iterator.next();
+				Iterator<Cell> cellIterator = nextRow.cellIterator();
 
-		public void main(String[] args) throws IOException {
-			ExcelReaderSyllabus excelReaderSyllabus = new ExcelReaderSyllabus();
-			String excelFilePath = "data/subjects.xlsx";
-			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+				while (cellIterator.hasNext()) {
 
-			Workbook workbook = new XSSFWorkbook(inputStream);
-			excelReaderSyllabus.readSyllabusDetailsSheet1(workbook.getSheetAt(1));
-			workbook.close();
-			inputStream.close();
-
+					Cell cell = cellIterator.next();
+					cell.setCellType(Cell.CELL_TYPE_STRING);
+					switch (cell.getCellType()) {
+					case Cell.CELL_TYPE_STRING:
+						switch (cellCount) {
+						case 1:
+							research.setTitle(cell.getStringCellValue().trim());
+							break;
+						case 2:
+							research.setDescription(cell.getStringCellValue().trim());
+							break;
+						case 3:
+							research.setName1(cell.getStringCellValue().trim());
+							break;
+						case 4:
+							research.setName2(cell.getStringCellValue().trim());
+							break;
+						case 5:
+							research.setFunding(cell.getStringCellValue().trim());
+							break;
+						case 6:
+							research.setYear(cell.getStringCellValue().trim());
+							break;
+						
+						}
+					default:
+						break;
+					}
+					cellCount++;
+				}
+				researchList.add(research);
+			}
+			// System.out.println(new Gson().toJson(researchList));
+			jdbcUtil.persistResearchData(researchList);
 		}
 
-		private void readSyllabusDetailsSheet1(Sheet sheetAt) {
-			// TODO Auto-generated method stub
 
-		}
+
+	
 
 		private void readSyllabusDetailsSheet(Sheet syllabusSheet) {
 			Iterator<Row> iterator = syllabusSheet.iterator();
@@ -286,5 +326,6 @@ public class ExcelSheetReader {
 			// Caution(Chetan): Never run below method again
 			// JDBCUtil.persistFacultyData(facultyList);
 		}
+		
 	}
-}
+

@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.Syllabus;
 import org.dsce.tce.cis.common.CisConstants;
@@ -178,5 +179,37 @@ public class JDBCUtil {
 			} // end try
 			System.out.println("Goodbye!");
 		}// end main
+	}
+
+	public void persistResearchData(List<Research> researchList) {
+		
+		try {
+			initDBConnections();
+
+			for (Research research : researchList) {
+				String queryString = "INSERT INTO cis_tce_dsce.research ( full_name, designation, education_qualification, experience, specialization, email, phone, salutation) "
+						+ "VALUES ('" + research.getTitle() + "', '" + research.getDescription() + "','"
+						+ research.getName1() + "'," + research.getName1() + "','" + research.getFunding() + "',"
+						+ research.getYear() + ",'" ;
+				System.out.println(queryString);
+				sqlStatement.executeUpdate(queryString);
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (sqlStatement != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (dbConnection != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
 	}
 }
