@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.FacultyDao;
 
@@ -52,6 +53,22 @@ public class FacultyDaoImpl implements FacultyDao {
 			publicationList.add(publication);
 		}
 		return publicationList;
+	}
+
+	@Override
+	public List<Research> getResearchDetails() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
+		Statement stmt = conn.createStatement();
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.research");
+		List<Research> researchList = new ArrayList<>();
+		while (rs.next()) {
+			Research research = new Research(rs.getString("Title"), rs.getString("Description"),
+					rs.getString("Name1"), rs.getString("Name2"),rs.getString("Funding"),rs.getString("Year"));
+			researchList.add(research);
+		}
+		return researchList;
 	}
 
 }
