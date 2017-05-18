@@ -1,3 +1,23 @@
-<div>
-research on going
+<div class="container">
+	<h1>Research on going</h1>
+	
+	<table class="table">
+		<tr>
+			<th>Title</th>
+			<th>Description</th>
+			<th>PI : Name and designation</th>
+			<th>CO PI : Name and designation</th>
+			<th>Funding agency and amount</th>
+			<th>Year : from  and up to Status</th>
+		</tr>
+		<tr ng-repeat-start="research in Research ">
+					<td>{{ research.Title }}</td>
+					<td>{{ research.Description }}</td>
+					<td>{{ research.Name1 }}</td>
+					<td>{{ research.Name2 }}</td>
+					<td>{{ research.Funding }}</td>
+					<td>{{ research.Year }}</td>
+					
+				<tr ng-repeat-end>
+	</table>
 </div>
