@@ -6,9 +6,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.dao.FacultyDao;
 import org.dsce.tce.cis.dao.impl.FacultyDaoImpl;
 import org.dsce.tce.cis.service.FacultyService;
+import org.dsce.tce.cis.service.ResearchServer;
 
 public class FacultyServiceImpl implements FacultyService {
 
@@ -29,6 +31,13 @@ public class FacultyServiceImpl implements FacultyService {
 		facultyDao = new FacultyDaoImpl();
 		List<Publication> publicationList = facultyDao.getPublications();
 		return publicationList;
+	}
+
+	@Override
+	public List<Research> getResearchDetails() throws ClassNotFoundException, SQLException {
+		facultyDao = new FacultyDaoImpl();
+		List<Research> researchList = facultyDao.getResearchDetails();
+		return researchList;
 	}
 
 }
