@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.service.FacultyService;
@@ -25,6 +26,8 @@ import com.google.gson.Gson;
 @WebServlet(urlPatterns = { "/faculty", "/publication" })
 public class FacultyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static final Logger logger = Logger.getLogger(FacultyServlet.class);
 
 	private FacultyService facultyService;
 
@@ -45,8 +48,9 @@ public class FacultyServlet extends HttpServlet {
 		try {
 
 			if (requestUrl.contains("faculty")) {
-				// get faculty of the department.
+				logger.debug("Fetching faculty details.");
 				List<Faculty> facultyList = facultyService.getFacultyDetails();
+				logger.debug("Found " + facultyList.size() + " faculties");
 				response.setContentType("application/json");
 				String facultyJson = new Gson().toJson(facultyList);
 				response.getWriter().write(facultyJson);

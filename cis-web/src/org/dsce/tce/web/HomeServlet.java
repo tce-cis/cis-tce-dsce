@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.service.StudentService;
@@ -26,6 +27,8 @@ import com.google.gson.Gson;
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final Logger logger = Logger.getLogger(HomeServlet.class);
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,14 +42,16 @@ public class HomeServlet extends HttpServlet {
 		try {
 
 			if (req.getServletPath().contains("subjects")) {
-
+				logger.debug("Fetching list of subjects.");
 				List<Subject> subjectList = service.getSubjectDetail();
+				logger.debug("Found " + subjectList.size() + " subjects.");
 				resp.setContentType("application/json");
 				String subjectJson = new Gson().toJson(subjectList);
 				resp.getWriter().write(subjectJson);
 			} else if (req.getServletPath().contains("companies")) {
-
+				logger.debug("Fetching list of companies.");
 				List<Company> companyList = service.getCompaniesList();
+				logger.debug("Found " + companyList.size() + " companies.");
 				resp.setContentType("application/json");
 				String companyJson = new Gson().toJson(companyList);
 				resp.getWriter().write(companyJson);
