@@ -1,4 +1,4 @@
-   package org.dsce.tce.cis.util;
+package org.dsce.tce.cis.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +14,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
-import org.dsce.tce.cis.bean.Research;
+import org.dsce.tce.cis.bean.Student;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.bean.Syllabus;
+import org.dsce.tce.cis.bean.SubjectScore;
+import org.dsce.tce.cis.bean.SubjectUnit;
 
 public class ExcelSheetReader {
 
@@ -31,30 +32,39 @@ public class ExcelSheetReader {
 		String excelFilePath = "data/faculty_details.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 		Workbook workbook = new XSSFWorkbook(inputStream);
-		excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
+		// excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
-		excelFilePath = "data/publication.xlsx";
+		excelFilePath = "data/faculty_details.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readPublicationSheet(workbook.getSheetAt(0));
+		// excelReader.readPublicationSheet(workbook.getSheetAt(1));
 		workbook.close();
 		inputStream.close();
 
-		excelFilePath = "data/subjects.xlsx  ";
+		excelFilePath = "data/subjects.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		//excelReader.readSubjectDetails(workbook.getSheetAt(0));
+		// excelReader.readSubjectDetails(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
-		
-		excelFilePath = "data/research.xlsx  ";
+
+		excelFilePath = "data/subjects.xlsx";
+		inputStream = new FileInputStream(new File(excelFilePath));
+
+		workbook = new XSSFWorkbook(inputStream);
+		// excelReader.readSubjectUnitsSheet(workbook.getSheetAt(1));
+		// for (int i = 1; i < workbook.getNumberOfSheets(); i++) { }
+		workbook.close();
+		inputStream.close();
+
+		excelFilePath = "data/results.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
+		excelReader.readResultsSheet(workbook.getSheetAt(0));
 		workbook.close();
-		inputStream.close(); 
+		inputStream.close();
 
 	}
 
@@ -64,9 +74,7 @@ public class ExcelSheetReader {
 		int cellCount;
 		Faculty faculty = new Faculty();
 		while (iterator.hasNext()) {
-
 			cellCount = 1;
-
 			faculty = new Faculty();
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -110,8 +118,7 @@ public class ExcelSheetReader {
 			}
 			facultyList.add(faculty);
 		}
-		// System.out.println(new Gson().toJson(facultyList));
-		//jdbcUtil.persistFacultyData(facultyList);
+		jdbcUtil.persistFacultyData(facultyList);
 	}
 
 	private void readPublicationSheet(Sheet publicationsSheet) {
@@ -120,22 +127,18 @@ public class ExcelSheetReader {
 		int cellCount;
 		Publication publication = new Publication();
 		while (iterator.hasNext()) {
-
 			cellCount = 1;
-
 			publication = new Publication();
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator = nextRow.cellIterator();
-
 			while (cellIterator.hasNext()) {
-
 				Cell cell = cellIterator.next();
 				cell.setCellType(Cell.CELL_TYPE_STRING);
 				switch (cell.getCellType()) {
 				case Cell.CELL_TYPE_STRING:
 					switch (cellCount) {
 					case 1:
-						// publication.setTitle(cell.getStringCellValue().trim());
+						publication.setPrimaryAuthor(cell.getStringCellValue().trim());
 						break;
 					case 2:
 						publication.setTitle(cell.getStringCellValue().trim());
@@ -144,10 +147,9 @@ public class ExcelSheetReader {
 						publication.setJournal(cell.getStringCellValue().trim());
 						break;
 					case 4:
-						publication.setPrimaryAuthor(cell.getStringCellValue().trim());
-						break;
-					case 5:
 						publication.setCoAuthors(cell.getStringCellValue().trim());
+						break;
+					default:
 						break;
 					}
 				default:
@@ -158,12 +160,11 @@ public class ExcelSheetReader {
 			publicationList.add(publication);
 			System.out.println();
 		}
-		// System.out.println(new Gson().toJson(publicationList));
-		//jdbcUtil.persistPublicationData(publicationList);
+		jdbcUtil.persistPublicationData(publicationList);
 	}
 
-	private void readSubjectDetails(Sheet subjectDetail) {
-		Iterator<Row> iterator = subjectDetail.iterator();
+	private void readSubjectDetails(Sheet subjectSheet) {
+		Iterator<Row> iterator = subjectSheet.iterator();
 		List<Subject> subjectlist = new ArrayList<>();
 		int cellCount;
 		Subject subject = new Subject();
@@ -212,120 +213,199 @@ public class ExcelSheetReader {
 			subjectlist.add(subject);
 			System.out.println();
 		}
-		// System.out.println(new Gson().toJson(subjectlist));
 
-		//jdbcUtil.persistSubjectList(subjectlist);
+		jdbcUtil.persistSubjectList(subjectlist);
+
 	}
-		private void readResearchDetailsSheet(Sheet researchSheet) {
-			Iterator<Row> iterator = researchSheet.iterator();
-			List<Research> researchList = new ArrayList<>();
-			int cellCount;
-			Research research = new Research();
-			while (iterator.hasNext()) {
 
-				cellCount = 1;
+	private void readSubjectUnitsSheet(Sheet syllabusSheet) {
+		Iterator<Row> iterator = syllabusSheet.iterator();
+		List<SubjectUnit> subjectUnitList = new ArrayList<>();
+		int cellCount;
+		SubjectUnit syllabus = new SubjectUnit();
+		while (iterator.hasNext()) {
+			cellCount = 1;
+			syllabus = new SubjectUnit();
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
 
-				research = new Research();
-				Row nextRow = iterator.next();
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
+			while (cellIterator.hasNext()) {
 
-				while (cellIterator.hasNext()) {
+				Cell cell = cellIterator.next();
+				cell.setCellType(Cell.CELL_TYPE_STRING);
+				switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_STRING:
+					switch (cellCount) {
+					case 1:
+						syllabus.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 2:
+						syllabus.setPart(cell.getStringCellValue().trim());
+						break;
+					case 3:
+						syllabus.setUnit(cell.getStringCellValue().trim());
+						break;
+					case 4:
+						syllabus.setUnitTitle(cell.getStringCellValue().trim());
+						break;
+					case 5:
+						syllabus.setUnitDescription(cell.getStringCellValue().trim());
+						break;
+					case 6:
+						syllabus.setUnitHours(cell.getStringCellValue().trim());
+						break;
+					}
+				default:
+					break;
+				}
+				cellCount++;
+			}
+			subjectUnitList.add(syllabus);
+		}
+		jdbcUtil.persistSubjectUnitsData(subjectUnitList);
+	}
 
-					Cell cell = cellIterator.next();
-					cell.setCellType(Cell.CELL_TYPE_STRING);
-					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						switch (cellCount) {
-						case 1:
-							research.setTitle(cell.getStringCellValue().trim());
-							break;
-						case 2:
-							research.setDescription(cell.getStringCellValue().trim());
-							break;
-						case 3:
-							research.setName1(cell.getStringCellValue().trim());
-							break;
-						case 4:
-							research.setName2(cell.getStringCellValue().trim());
-							break;
-						case 5:
-							research.setFunding(cell.getStringCellValue().trim());
-							break;
-						case 6:
-							research.setYear(cell.getStringCellValue().trim());
-							break;
-						
-						}
+	private void readResultsSheet(Sheet resultsSheet) {
+		Iterator<Row> iterator = resultsSheet.iterator();
+		List<Student> studentsList = new ArrayList<>();
+		int cellCount;
+		Student student = new Student();
+		SubjectScore subjectScore1 = null;
+		SubjectScore subjectScore2 = null;
+		SubjectScore subjectScore3 = null;
+		SubjectScore subjectScore4 = null;
+		SubjectScore subjectScore5 = null;
+		SubjectScore subjectScore6 = null;
+		SubjectScore subjectScore7 = null;
+		SubjectScore subjectScore8 = null;
+
+		while (iterator.hasNext()) {
+			cellCount = 1;
+			student = new Student();
+			student.setMarksCard(new ArrayList<SubjectScore>());
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+			subjectScore1 = new SubjectScore();
+			subjectScore2 = new SubjectScore();
+			subjectScore3 = new SubjectScore();
+			subjectScore4 = new SubjectScore();
+			subjectScore5 = new SubjectScore();
+			subjectScore6 = new SubjectScore();
+			subjectScore7 = new SubjectScore();
+			subjectScore8 = new SubjectScore();
+			while (cellIterator.hasNext()) {
+
+				Cell cell = cellIterator.next();
+				cell.setCellType(Cell.CELL_TYPE_STRING);
+				switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_STRING:
+					switch (cellCount) {
+					case 1:
+						subjectScore1.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore2.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore3.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore4.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore5.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore6.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore7.setSemesterNumber(cell.getStringCellValue().trim());
+						subjectScore8.setSemesterNumber(cell.getStringCellValue().trim());
+						break;
+					case 2:
+						student.setUsn(cell.getStringCellValue().trim());
+						break;
+					case 3:
+						subjectScore1.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 4:
+						subjectScore1.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 5:
+						subjectScore1.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 6:
+						subjectScore2.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 7:
+						subjectScore2.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 8:
+						subjectScore2.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 9:
+						subjectScore3.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 10:
+						subjectScore3.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 11:
+						subjectScore3.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 12:
+						subjectScore4.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 13:
+						subjectScore4.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 14:
+						subjectScore4.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 15:
+						subjectScore5.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 16:
+						subjectScore5.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 17:
+						subjectScore5.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 18:
+						subjectScore6.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 19:
+						subjectScore6.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 20:
+						subjectScore6.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 21:
+						subjectScore7.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 22:
+						subjectScore7.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 23:
+						subjectScore7.setExternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 24:
+						subjectScore8.setSubjectCode(cell.getStringCellValue().trim());
+						break;
+					case 25:
+						subjectScore8.setInternalMarks(cell.getStringCellValue().trim());
+						break;
+					case 26:
+						subjectScore8.setExternalMarks(cell.getStringCellValue().trim());
+						break;
 					default:
 						break;
 					}
-					cellCount++;
+				default:
+					break;
 				}
-				researchList.add(research);
+				cellCount++;
 			}
-			// System.out.println(new Gson().toJson(researchList));
-			jdbcUtil.persistResearchData(researchList);
+			List<SubjectScore> marksCard = student.getMarksCard();
+			marksCard.add(subjectScore1);
+			marksCard.add(subjectScore2);
+			marksCard.add(subjectScore3);
+			marksCard.add(subjectScore4);
+			marksCard.add(subjectScore5);
+			marksCard.add(subjectScore6);
+			marksCard.add(subjectScore7);
+			marksCard.add(subjectScore8);
+			student.setMarksCard(marksCard);
+			studentsList.add(student);
 		}
-
-
-
-	
-
-		private void readSyllabusDetailsSheet(Sheet syllabusSheet) {
-			Iterator<Row> iterator = syllabusSheet.iterator();
-			List<Syllabus> syllabusList = new ArrayList<>();
-			int cellCount;
-			Syllabus syllabus = new Syllabus();
-			while (iterator.hasNext()) {
-
-				cellCount = 1;
-
-				syllabus = new Syllabus();
-				Row nextRow = iterator.next();
-				Iterator<Cell> cellIterator = nextRow.cellIterator();
-
-				while (cellIterator.hasNext()) {
-
-					Cell cell = cellIterator.next();
-					cell.setCellType(Cell.CELL_TYPE_STRING);
-					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_STRING:
-						switch (cellCount) {
-						case 1:
-							syllabus.setName(cell.getStringCellValue().trim());
-							break;
-						case 2:
-							syllabus.setpart(cell.getStringCellValue().trim());
-							break;
-						case 3:
-							syllabus.setunit(cell.getStringCellValue().trim());
-							break;
-						case 4:
-							syllabus.setunitTitle(cell.getStringCellValue().trim());
-							break;
-						case 5:
-							syllabus.setUnitDescription(cell.getStringCellValue().trim());
-							break;
-						case 6:
-							syllabus.setunitHours(cell.getStringCellValue().trim());
-							break;
-						}
-					default:
-						break;
-					}
-					cellCount++;
-				}
-				syllabusList.add(syllabus);
-				for (Syllabus member : syllabusList) {
-					System.out.println(member.getName());
-				}
-				System.out.println();
-			}
-			// System.out.println(new Gson().toJson(syllabusList));
-
-			// Caution(Chetan): Never run below method again
-			// JDBCUtil.persistFacultyData(facultyList);
-		}
-		
+		jdbcUtil.persistStudentMarks(studentsList);
 	}
-
+}

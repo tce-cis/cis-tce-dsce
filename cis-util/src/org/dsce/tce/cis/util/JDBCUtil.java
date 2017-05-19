@@ -9,10 +9,11 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
-import org.dsce.tce.cis.bean.Research;
+import org.dsce.tce.cis.bean.Student;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.bean.Syllabus;
-import org.dsce.tce.cis.common.CisConstants;
+import org.dsce.tce.cis.bean.SubjectScore;
+import org.dsce.tce.cis.bean.SubjectUnit;
+import org.dsce.tce.cis.common.constant.CisConstants;
 
 public class JDBCUtil {
 
@@ -61,12 +62,12 @@ public class JDBCUtil {
 	public void persistPublicationData(List<Publication> publicationList) {
 		try {
 			initDBConnections();
+			publicationList.remove(0);
 			for (Publication publication : publicationList) {
 				String queryString = "INSERT INTO cis_tce_dsce.publication ( title, journal, primary_author, co_authors) "
 						+ "VALUES ('" + publication.getTitle() + "', '" + publication.getJournal() + "','"
 						+ publication.getPrimaryAuthor() + "','" + publication.getCoAuthors() + "');";
-				// System.out.println(queryString);
-				// stmt.executeUpdate(queryString);
+				sqlStatement.executeUpdate(queryString);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -87,18 +88,19 @@ public class JDBCUtil {
 		}
 	}
 
-	public void persistSubjectList(List<Subject> SubjectDetail) {
+	public void persistSubjectList(List<Subject> SubjectsList) {
 		try {
 			initDBConnections();
+			// Remove the header
+			SubjectsList.remove(0);
 
-			for (Subject subject : SubjectDetail) {
+			for (Subject subject : SubjectsList) {
 				String sqlQueryString = "INSERT INTO cis_tce_dsce.Subject ( subjectName, code, iaMarks, examHours, hrsPerWeek, totalHrs, examMarks) "
 						+ "VALUES ('" + subject.getName() + "', '" + subject.getCode() + "','"
 						+ Integer.parseInt(subject.getIaMarks()) + "'," + Integer.parseInt(subject.getExamHours())
 						+ ",'" + Integer.parseInt(subject.getHoursPerWeek()) + "','"
 						+ Integer.parseInt(subject.getTotalHours()) + "'," + Integer.parseInt(subject.getExamMarks())
 						+ "); ";
-				// System.out.println(sqlQueryString);
 				sqlStatement.executeUpdate(sqlQueryString);
 			}
 		} catch (SQLException se) {
@@ -120,80 +122,105 @@ public class JDBCUtil {
 		}
 	}
 
-	/////
-	public class JDBCUtilSyllabus {
-		// JDBC driver name and database URL
-		static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-		static final String DB_URL = "jdbc:mysql://localhost:3306/cis_tce_dsce";
+	public void persistSubjectUnitsData(List<SubjectUnit> subjectUnitsList) {
+		try {
 
-		// Database credentials
-		static final String USER = "root";
-		static final String PASS = "";
+			initDBConnections();
+			// remove header
+			subjectUnitsList.remove(0);
+			for (SubjectUnit unit : subjectUnitsList) {
 
-		public void persistSyllabusData(List<Syllabus> syllabusList, Object syllabusList1) {
+				String queryString = "INSERT INTO cis_tce_dsce.subject_unit ( subject_code, part, unit, unit_title, Unit_Description, unit_Hours) "
+						+ "VALUES ('" + unit.getSubjectCode() + "', '" + unit.getPart() + "','" + unit.getUnit() + "','"
+						+ unit.getUnitTitle() + "','" + unit.getUnitDescription() + "','" + unit.getUnitHours() + "');";
+				System.out.println(queryString);
+				sqlStatement.executeUpdate(queryString);
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (sqlStatement != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (dbConnection != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+
+	public void populateAuthenticatedUsers() {
+
+		String[] queryList = new String[104];
+
+		for (int i = 0; i < 9;) {
+			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE00" + ++i + "', '"
+					+ PasswordHashingDemo.generateHash("1DS14TE00" + i) + "'); ";
+		}
+
+		for (int i = 9; i < 100;) {
+			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE0" + ++i + "', '"
+					+ PasswordHashingDemo.generateHash("1DS14TE0" + i) + "'); ";
+		}
+		for (int i = 99; i < 104;) {
+			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE" + ++i + "', '"
+					+ PasswordHashingDemo.generateHash("1DS14TE" + i) + "'); ";
+		}
+
+		for (String queryString : queryList) {
+			System.out.println(queryString);
 			Connection conn = null;
 			Statement stmt = null;
 			try {
-				// STEP 2: Register JDBC driver
-				Class.forName("com.mysql.jdbc.Driver");
-
-				// STEP 3: Open a connection
-				System.out.println("Connecting to a selected database...");
-				conn = DriverManager.getConnection(DB_URL, USER, PASS);
-				System.out.println("Connected database successfully...");
-
-				// STEP 4: Execute a query
-				System.out.println("Inserting records into the table...");
+				conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
 				stmt = conn.createStatement();
-
-				for (Syllabus syllabus : syllabusList) {
-
-					String sql = "INSERT INTO cis_tce_dsce.syllabus ( subjectCode, part, unit, unitTitle, UnitDiscription, unitHours) "
-							+ "VALUES ('" + syllabus.getName() + "', '" + syllabus.getpart() + "','"
-							+ syllabus.getunit() + "'," + Integer.parseInt(syllabus.getunitTitle()) + ",'"
-							+ syllabus.getUnitDescription() + "','" + syllabus.getunitHours() + "',";
-
-					stmt.executeUpdate(sql);
-				}
-				System.out.println("Inserted records into the table...");
+				// stmt.executeUpdate(queryString);
 
 			} catch (SQLException se) {
-				// Handle errors for JDBC
 				se.printStackTrace();
 			} catch (Exception e) {
-				// Handle errors for Class.forName
 				e.printStackTrace();
 			} finally {
-				// finally block used to close resources
 				try {
 					if (stmt != null)
 						conn.close();
 				} catch (SQLException se) {
-				} // do nothing
+				}
 				try {
 					if (conn != null)
 						conn.close();
 				} catch (SQLException se) {
 					se.printStackTrace();
-				} // end finally try
-			} // end try
-			System.out.println("Goodbye!");
-		}// end main
+				}
+			}
+		}
+
 	}
 
-	public void persistResearchData(List<Research> researchList) {
-		
+	public void persistStudentMarks(List<Student> studentsList) {
 		try {
-			initDBConnections();
 
-			for (Research research : researchList) {
-				String queryString = "INSERT INTO cis_tce_dsce.research ( full_name, designation, education_qualification, experience, specialization, email, phone, salutation) "
-						+ "VALUES ('" + research.getTitle() + "', '" + research.getDescription() + "','"
-						+ research.getName1() + "'," + research.getName1() + "','" + research.getFunding() + "',"
-						+ research.getYear() + ",'" ;
-				System.out.println(queryString);
-				sqlStatement.executeUpdate(queryString);
+			initDBConnections();
+			// remove header
+			studentsList.remove(0);
+			for (Student student : studentsList) {
+				for (SubjectScore score : student.getMarksCard()) {
+					String queryString = "INSERT INTO cis_tce_dsce.results ( subject_code, semester_number, usn, internal_marks, external_marks) "
+							+ "VALUES ('" + score.getSubjectCode() + "', '" + score.getSemesterNumber() + "','"
+							+ student.getUsn() + "','" + score.getInternalMarks() + "','" + score.getExternalMarks()
+							+ "');";
+					sqlStatement.executeUpdate(queryString);
+				}
+
 			}
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
