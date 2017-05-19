@@ -1,23 +1,29 @@
-<div class="container">
-	<h1>Research on going</h1>
-	
-	<table class="table">
+<div class="container" ng-controller="ResearchController">
+	<h1>On going research activities</h1>
+	<table class="table text-justify" ng-repeat="research in researches">
 		<tr>
-			<th>Title</th>
+			<th class="col-lg-3">Title</th>
+			<td>{{ research.title }}</td>
+		<tr>
+		<tr>
 			<th>Description</th>
-			<th>PI : Name and designation</th>
-			<th>CO PI : Name and designation</th>
-			<th>Funding agency and amount</th>
-			<th>Year : from  and up to Status</th>
+			<td>{{ research.description }}</td>
 		</tr>
-		<tr ng-repeat-start="research in Research ">
-					<td>{{ research.Title }}</td>
-					<td>{{ research.Description }}</td>
-					<td>{{ research.Name1 }}</td>
-					<td>{{ research.Name2 }}</td>
-					<td>{{ research.Funding }}</td>
-					<td>{{ research.Year }}</td>
-					
-				<tr ng-repeat-end>
+		<tr>
+			<th>PI : Name and designation</th>
+			<td>{{ research.piNameDesignation }}</td>
+		</tr>
+		<tr>
+			<th>CO PI : Name and designation</th>
+			<td>{{ research.coPiNameDesignation }}</td>
+		</tr>
+		<tr>
+			<th>Funding agency and amount</th>
+			<td>{{ research.fundingAgencyAndAmount }}</td>
+		</tr>
+		<tr>
+			<th>Year : from and up to Status</th>
+			<td>{{ research.startYearEndYear }}</td>
+		</tr>
 	</table>
 </div>

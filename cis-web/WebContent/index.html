@@ -10,24 +10,24 @@
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
 
-<title>TCE-DSCE</title>
+<title>Department of Telecommunication</title>
 
 <!-- Bootstrap core CSS -->
 <link href="node_modules/bootstrap/dist/css/bootstrap.css"
 	rel="stylesheet">
-	<link href="styles/carousel.css"
-	rel="stylesheet">
+<link href="styles/carousel.css" rel="stylesheet">
 
 <link href="styles/navbar-static-top.css" rel="stylesheet">
 <link href="styles/signin.css" rel="stylesheet">
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/angular-route/angular-route.js"></script>
+<script src="node_modules/angular-cookies/angular-cookies.js"></script>
 <script src="scripts/cisApp.js"></script>
 </head>
-<body style="padding-top: 70px">
-	<!-- Static navbar -->
+<body style="padding-top: 130px">
 	<div ng-app="cisApp" ng-controller="HomeController">
-		<nav class="navbar navbar-default navbar-fixed-top"style="background-color:lightseagreen">
+		<nav class="navbar navbar-default navbar-fixed-top"
+			style="background-color: lightseagreen">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -38,7 +38,8 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#about"><font color=black><em>Telecom</em></font></a>
+					<a class="navbar-brand text-center" href="#about"><strong>Department
+							of Telecommunication</strong></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,7 +48,8 @@
 					<ul class="nav navbar-nav">
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white> About</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>
+										About</font></strong><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#program_outcomes">Program Outcomes</a></li>
 								<li><a href="#pso">PSO</a></li>
@@ -63,7 +65,8 @@
  -->
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Academics</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>Academics</font></strong><span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#student_details">UG</a></li>
 								<li class="divider"></li>
@@ -88,7 +91,8 @@
 							</ul></li>
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>People</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>People</font></strong><span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#faculty" ng-click="getFacultyDetails()">Faculty</a></li>
 								<li><a href="#faculty_profile">Faculty Profiles</a></li>
@@ -97,16 +101,18 @@
 
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Research</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>Research</font></strong><span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#research_completed">Completed</a></li>
 								<li><a href="#research_on_going">On going</a></li>
 							</ul></li>
-							
-							
-							<li class="dropdown"><a href="" class="dropdown-toggle"
+
+
+						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Resources</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>Resources</font></strong><span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#subjects">Subject List</a></li>
 								<li><a href="#syllabus">Syllabus</a></li>
@@ -114,31 +120,34 @@
 
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Result Analysis</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>Result
+										Analysis</font></strong><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#sem_result_analysis">Semester wise</a></li>
 							</ul></li>
 
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Placements</font></strong><span class="caret"></span></a>
+							aria-expanded="false"><strong><font color=white>Placements</font></strong><span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#companies">List of Companies</a></li>
 								<li><a href="#placement_analysis">Placement Analysis</a></li>
 							</ul></li>
 
 						<li><a href="#events"><strong><font color=white>Events</font></strong></a></li>
-						<li class=""><a href="#feedback"><strong><font color=white>Feedback</font></strong></a></li>
+						<li><a href="#login"><strong><font color=white>Login</font></strong></a></li>
+						<li class=""><a href="#feedback"><strong><font
+									color=white>Feedback</font></strong></a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<ng-view></ng-view>
 	</div>
-	<script
-		src="node_modules\jquery\dist\jquery.min.js"></script>
+	<script src="node_modules\jquery\dist\jquery.min.js"></script>
 	<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-	
+
 
 </body>
 </html>

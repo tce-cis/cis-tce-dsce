@@ -64,8 +64,9 @@ public class FacultyDaoImpl implements FacultyDao {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.research");
 		List<Research> researchList = new ArrayList<>();
 		while (rs.next()) {
-			Research research = new Research(rs.getString("Title"), rs.getString("Description"),
-					rs.getString("Name1"), rs.getString("Name2"),rs.getString("Funding"),rs.getString("Year"));
+			Research research = new Research(rs.getString("title"), rs.getString("description"),
+					rs.getString("pi_name_designation"), rs.getString("co_pi_name_designation"),
+					rs.getString("funding_agency_amount"), rs.getString("start_year_end_year"));
 			researchList.add(research);
 		}
 		return researchList;

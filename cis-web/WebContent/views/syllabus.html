@@ -5,7 +5,7 @@
 			Syllabus <small>Telecom Department</small>
 		</h1>
 	</div>
-		<div class="input-group input-group-lg">
+	<div class="input-group input-group-lg">
 		<span class="input-group-addon" id="sizing-addon1">Search
 			Subject name</span> <input type="text" class="form-control"
 			placeholder="Enter the subject name" aria-describedby="sizing-addon1"
@@ -24,13 +24,12 @@
 					<th>Teaching Hours</th>
 				</tr>
 				<tr ng-repeat="unit in units | filter: name">
-					<td>{{ unit.name }}</td>
-					<td>{{ unit.code }}</td>
-					<td>{{ unit.iaMarks }}</td>
-					<td>{{ unit.examMarks }}</td>
-					<td>{{ unit.examHours }}</td>
-					<td>{{ unit.hoursPerWeek }}</td>
-					<td>{{ unit.totalHours }}</td>
+					<td>{{ unit.subjectCode }}</td>
+					<td>{{ unit.part }}</td>
+					<td>{{ unit.unit }}</td>
+					<td>{{ unit.unitTitle }}</td>
+					<td>{{ unit.unitDesciption }}</td>
+					<td>{{ unit.unitHours }}</td>
 
 				</tr>
 			</table>

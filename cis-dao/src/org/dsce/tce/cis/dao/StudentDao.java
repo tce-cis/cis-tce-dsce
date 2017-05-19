@@ -4,13 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.dsce.tce.cis.bean.Company;
-import java.util.List;
-
 import org.dsce.tce.cis.bean.Feedback;
-import org.dsce.tce.cis.bean.MarksCard;
-import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.bean.Syllabus;
+import org.dsce.tce.cis.bean.SubjectScore;
+import org.dsce.tce.cis.bean.SubjectUnit;
 
 /**
  * 
@@ -19,16 +16,38 @@ import org.dsce.tce.cis.bean.Syllabus;
  */
 public interface StudentDao {
 
-	StudentDetails getStudentDetailsByUsn(String usn);
-
-	MarksCard getMarksCardByUsnAndSemester(String usn, byte semester);
-
 	void saveFeedback(Feedback feedbackReceived);
 
-	List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException;
+	/**
+	 * Method to obtain list of subjects taught in the department from DB.
+	 * 
+	 * @return {@link List} of {@link Subject} <br>
+	 *         List of subjects taught in the department.
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	List<Subject> getSubjects() throws ClassNotFoundException, SQLException;
 
+	/**
+	 * Method to get list of companies associated with recruitment
+	 * 
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	List<Company> getCompaniesList() throws SQLException, ClassNotFoundException;
 
-	List<Syllabus> getSyllabusDetails();
+	/**
+	 * Method to obtain syllabus of subjects taught in the department
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException;
+
+	List<SubjectScore> getResultsByUsn(String usn);
+
+	List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester);
 
 }

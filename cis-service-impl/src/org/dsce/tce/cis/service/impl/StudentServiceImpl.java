@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Feedback;
-import org.dsce.tce.cis.bean.MarksCard;
-import org.dsce.tce.cis.bean.StudentDetails;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.bean.Syllabus;
+import org.dsce.tce.cis.bean.SubjectScore;
+import org.dsce.tce.cis.bean.SubjectUnit;
 import org.dsce.tce.cis.dao.StudentDao;
 import org.dsce.tce.cis.dao.impl.StudentDaoImpl;
 import org.dsce.tce.cis.service.StudentService;
@@ -22,15 +21,15 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public StudentDetails getStudentDetailsByUsn(String usn) {
-		StudentDetails details = studentDao.getStudentDetailsByUsn(usn);
-		return details;
+	public List<SubjectScore> getResultsByUsn(String usn) {
+		List<SubjectScore> results = studentDao.getResultsByUsn(usn);
+		return results;
 	}
 
 	@Override
-	public MarksCard getMarksCardByUsnAndSemester(String usn, byte semester) {
-		MarksCard card = studentDao.getMarksCardByUsnAndSemester(usn, semester);
-		return card;
+	public List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester) {
+		List<SubjectScore> semesterResult = studentDao.getMarksCardByUsnAndSemester(usn, semester);
+		return semesterResult;
 	}
 
 	@Override
@@ -39,9 +38,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException {
+	public List<Subject> getSubjects() throws ClassNotFoundException, SQLException {
 		studentDao = new StudentDaoImpl();
-		List<Subject> subjectlist = studentDao.getSubjectDetail();
+		List<Subject> subjectlist = studentDao.getSubjects();
 		return subjectlist;
 	}
 
@@ -53,8 +52,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Syllabus> getSyllabusDetails() throws ClassNotFoundException, SQLException {
-		List<Syllabus> syllabusList = studentDao.getSyllabusDetails();
+	public List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException {
+		List<SubjectUnit> syllabusList = studentDao.getSubjectUnits();
 		return syllabusList;
 	}
 

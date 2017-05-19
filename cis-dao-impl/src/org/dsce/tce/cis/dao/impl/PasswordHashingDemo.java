@@ -1,4 +1,4 @@
-package org.dsce.tce.cis.bean;
+package org.dsce.tce.cis.dao.impl;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

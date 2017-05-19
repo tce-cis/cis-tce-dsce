@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.bean.Student;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.SubjectScore;
@@ -62,10 +63,67 @@ public class ExcelSheetReader {
 		excelFilePath = "data/results.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		excelReader.readResultsSheet(workbook.getSheetAt(0));
+		// excelReader.readResultsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
+		excelFilePath = "data/research.xlsx  ";
+		inputStream = new FileInputStream(new File(excelFilePath));
+		workbook = new XSSFWorkbook(inputStream);
+		excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
+		workbook.close();
+		inputStream.close();
+
+	}
+
+	private void readResearchDetailsSheet(Sheet researchSheet) {
+		Iterator<Row> iterator = researchSheet.iterator();
+		List<Research> researchList = new ArrayList<>();
+		int cellCount;
+		Research research = new Research();
+		while (iterator.hasNext()) {
+
+			cellCount = 1;
+
+			research = new Research();
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+			while (cellIterator.hasNext()) {
+
+				Cell cell = cellIterator.next();
+				cell.setCellType(Cell.CELL_TYPE_STRING);
+				switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_STRING:
+					switch (cellCount) {
+					case 1:
+						research.setTitle(cell.getStringCellValue().trim());
+						break;
+					case 2:
+						research.setDescription(cell.getStringCellValue().trim());
+						break;
+					case 3:
+						research.setPiNameDesignation(cell.getStringCellValue().trim());
+						break;
+					case 4:
+						research.setCoPiNameDesignation(cell.getStringCellValue().trim());
+						break;
+					case 5:
+						research.setFundingAgencyAndAmount(cell.getStringCellValue().trim());
+						break;
+					case 6:
+						research.setStartYearEndYear(cell.getStringCellValue().trim());
+						break;
+					}
+				default:
+					break;
+				}
+				cellCount++;
+			}
+			researchList.add(research);
+		}
+		// System.out.println(new Gson().toJson(researchList));
+		jdbcUtil.persistResearchData(researchList);
 	}
 
 	private void readFacultyDetailsSheet(Sheet facultySheet) {
@@ -158,7 +216,6 @@ public class ExcelSheetReader {
 				cellCount++;
 			}
 			publicationList.add(publication);
-			System.out.println();
 		}
 		jdbcUtil.persistPublicationData(publicationList);
 	}
@@ -211,11 +268,9 @@ public class ExcelSheetReader {
 				cellCount++;
 			}
 			subjectlist.add(subject);
-			System.out.println();
 		}
 
 		jdbcUtil.persistSubjectList(subjectlist);
-
 	}
 
 	private void readSubjectUnitsSheet(Sheet syllabusSheet) {

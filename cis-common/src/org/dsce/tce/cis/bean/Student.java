@@ -1,30 +1,11 @@
 package org.dsce.tce.cis.bean;
 
+import java.util.List;
+
 public class Student {
 
-	// TODO: Namana
-	// To add other required attributes and corresponding getter, setter
-	// methods.
-
-	private String fullName;
-	private long eid;
 	private String usn;
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public long getEid() {
-		return eid;
-	}
-
-	public void setEid(long eid) {
-		this.eid = eid;
-	}
+	private List<SubjectScore> marksCard;
 
 	public String getUsn() {
 		return usn;
@@ -32,6 +13,14 @@ public class Student {
 
 	public void setUsn(String usn) {
 		this.usn = usn;
+	}
+
+	public List<SubjectScore> getMarksCard() {
+		return marksCard;
+	}
+
+	public void setMarksCard(List<SubjectScore> marksCard) {
+		this.marksCard = marksCard;
 	}
 
 }

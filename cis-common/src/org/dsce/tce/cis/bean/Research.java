@@ -1,81 +1,75 @@
 package org.dsce.tce.cis.bean;
 
 public class Research {
-	public String Title;
-	public String Description;
-	public String Name1;
-	public String Name2;
-	public String Funding;
-	public String Year;
-	
+
+	private String title;
+	private String description;
+	private String piNameDesignation;
+	private String coPiNameDesignation;
+	private String fundingAgencyAndAmount;
+	private String startYearEndYear;
 
 	public Research() {
-
+		super();
 	}
 
-	public Research(String Title, String Description, String Name1, String Name2,
-			String Funding, String Year) {
-		this.Title = Title;
-		this.Description = Description;
-		this.Name1 = Name1;
-		this.Name2 = Name2;
-		this.Funding = Funding;
-		this.Year = Year;
-		
-	}
-	public void setYear(String Year) {
-		this.Year=Year;
-		
-	}
-
-	public void setFunding(String Funding) {
-		this.Funding=Funding;
-		
-	}
-
-	public void setName2(String Name2) {
-		this.Name2=Name2;
-		
-	}
-
-	public void setName1(String Name1) {
-		this.Name1=Name1;
-		
-	}
-
-	public void setDescription(String Description) {
-	this.Description=Description;
-		
-	}
-
-	public void setTitle(String Title) {
-		this.Title =Title;
-		
+	public Research(String title, String description, String piNameDesignation, String coPiNameDesignation,
+			String fundingAgencyAndAmount, String startYearEndYear) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.piNameDesignation = piNameDesignation;
+		this.coPiNameDesignation = coPiNameDesignation;
+		this.fundingAgencyAndAmount = fundingAgencyAndAmount;
+		this.startYearEndYear = startYearEndYear;
 	}
 
 	public String getTitle() {
-		
-		return Title;
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
-		
-		return Description;
+		return description;
 	}
 
-	public String getName1() {
-	
-		return Name1;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getFunding() {
-		
-		return Name2;
+	public String getPiNameDesignation() {
+		return piNameDesignation;
 	}
 
-	public String getYear() {
-		
-		return Year;
+	public void setPiNameDesignation(String piNameDesignation) {
+		this.piNameDesignation = piNameDesignation;
+	}
+
+	public String getCoPiNameDesignation() {
+		return coPiNameDesignation;
+	}
+
+	public void setCoPiNameDesignation(String coPiNameDesignation) {
+		this.coPiNameDesignation = coPiNameDesignation;
+	}
+
+	public String getFundingAgencyAndAmount() {
+		return fundingAgencyAndAmount;
+	}
+
+	public void setFundingAgencyAndAmount(String fundingAgencyAndAmount) {
+		this.fundingAgencyAndAmount = fundingAgencyAndAmount;
+	}
+
+	public String getStartYearEndYear() {
+		return startYearEndYear;
+	}
+
+	public void setStartYearEndYear(String startYearEndYear) {
+		this.startYearEndYear = startYearEndYear;
 	}
 
 }

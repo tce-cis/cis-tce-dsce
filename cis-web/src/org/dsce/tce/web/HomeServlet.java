@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Subject;
+import org.dsce.tce.cis.bean.SubjectScore;
 import org.dsce.tce.cis.service.StudentService;
 import org.dsce.tce.cis.service.impl.StudentServiceImpl;
 
@@ -23,7 +24,7 @@ import com.google.gson.Gson;
  * 
  * @author Asha R
  */
-@WebServlet(urlPatterns = { "/subjects", "/companies" })
+@WebServlet(urlPatterns = { "/subjects", "/companies", "/results" })
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,21 +41,34 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		StudentService service = new StudentServiceImpl();
 		try {
-
 			if (req.getServletPath().contains("subjects")) {
+
 				logger.debug("Fetching list of subjects.");
-				List<Subject> subjectList = service.getSubjectDetail();
+				List<Subject> subjectList = service.getSubjects();
 				logger.debug("Found " + subjectList.size() + " subjects.");
 				resp.setContentType("application/json");
 				String subjectJson = new Gson().toJson(subjectList);
 				resp.getWriter().write(subjectJson);
+
 			} else if (req.getServletPath().contains("companies")) {
+
 				logger.debug("Fetching list of companies.");
 				List<Company> companyList = service.getCompaniesList();
 				logger.debug("Found " + companyList.size() + " companies.");
 				resp.setContentType("application/json");
 				String companyJson = new Gson().toJson(companyList);
 				resp.getWriter().write(companyJson);
+
+			} else if (req.getServletPath().contains("results")) {
+
+				logger.debug("Fetching list of companies.");
+				String usn = (String) req.getSession(false).getAttribute("currentUser");
+				List<SubjectScore> companyList = service.getResultsByUsn(usn);
+				logger.debug("Found " + companyList.size() + " companies.");
+				resp.setContentType("application/json");
+				String companyJson = new Gson().toJson(companyList);
+				resp.getWriter().write(companyJson);
+
 			}
 
 		} catch (ClassNotFoundException e) {

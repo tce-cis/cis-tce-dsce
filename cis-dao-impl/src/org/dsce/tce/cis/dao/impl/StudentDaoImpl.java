@@ -10,27 +10,13 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Feedback;
-import org.dsce.tce.cis.bean.MarksCard;
-import org.dsce.tce.cis.bean.Publication;
-import org.dsce.tce.cis.bean.StudentDetails;
-import org.dsce.tce.cis.bean.Syllabus;
 import org.dsce.tce.cis.bean.Subject;
+import org.dsce.tce.cis.bean.SubjectScore;
+import org.dsce.tce.cis.bean.SubjectUnit;
 import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.StudentDao;
 
 public class StudentDaoImpl implements StudentDao {
-
-	@Override
-	public StudentDetails getStudentDetailsByUsn(String usn) {
-		// TODO Rushitha to add JDBC code
-		return null;
-	}
-
-	@Override
-	public MarksCard getMarksCardByUsnAndSemester(String usn, byte semester) {
-		// TODO Rushitha to add JDBC code
-		return null;
-	}
 
 	@Override
 	public void saveFeedback(Feedback feedbackReceived) {
@@ -55,7 +41,7 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<Subject> getSubjectDetail() throws ClassNotFoundException, SQLException {
+	public List<Subject> getSubjects() throws ClassNotFoundException, SQLException {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
@@ -91,27 +77,39 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<Syllabus> getSyllabusDetails() {
-		List<Syllabus> syllabusList = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection dbConnection = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER,
-					CisConstants.PASS);
-			Statement sqlStatement = dbConnection.createStatement();
-			String queryString = "SELECT * FROM SUBJECT";
-			System.out.println(queryString);
-			ResultSet rs = sqlStatement.executeQuery(queryString);
+	public List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
+		Statement stmt = conn.createStatement();
 
-			while (rs.next()) {
-				Syllabus publication = new Syllabus();
-				syllabusList.add(publication);
-			}
+		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.subject_unit");
+		List<SubjectUnit> subjectUnitList = new ArrayList<>();
 
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		while (rs.next()) {
+
+			SubjectUnit subjectUnit = new SubjectUnit(rs.getString("subject_code"), rs.getString("part"),
+					rs.getString("unit"), rs.getString("unit_title"), rs.getString("unit_description"),
+					rs.getString("unit_hours"));
+			subjectUnitList.add(subjectUnit);
 		}
-		return syllabusList;
 
+		while (rs.next()) {
+			SubjectUnit syllabus = new SubjectUnit();
+			subjectUnitList.add(syllabus);
+		}
+		return subjectUnitList;
+	}
+
+	@Override
+	public List<SubjectScore> getResultsByUsn(String usn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

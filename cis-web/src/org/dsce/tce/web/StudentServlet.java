@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dsce.tce.cis.bean.Feedback;
-import org.dsce.tce.cis.bean.Syllabus;
+import org.dsce.tce.cis.bean.SubjectUnit;
 import org.dsce.tce.cis.service.StudentService;
 import org.dsce.tce.cis.service.impl.StudentServiceImpl;
 
@@ -38,10 +38,11 @@ public class StudentServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
+			// Syllabus
 			StudentService studentService = new StudentServiceImpl();
 			resp.setContentType("application/json");
-			List<Syllabus> syllabusList;
-			syllabusList = studentService.getSyllabusDetails();
+			List<SubjectUnit> syllabusList;
+			syllabusList = studentService.getSubjectUnits();
 			String syllabusJson = new Gson().toJson(syllabusList);
 			resp.getWriter().write(syllabusJson);
 		} catch (ClassNotFoundException e) {
@@ -58,6 +59,7 @@ public class StudentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Feedback
 		StudentService studentService = new StudentServiceImpl();
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 		String feedbackJson = br.readLine();

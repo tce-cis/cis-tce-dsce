@@ -9,11 +9,12 @@ import java.util.List;
 
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.bean.Student;
 import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.SubjectScore;
 import org.dsce.tce.cis.bean.SubjectUnit;
-import org.dsce.tce.cis.common.constant.CisConstants;
+import org.dsce.tce.cis.common.CisConstants;
 
 public class JDBCUtil {
 
@@ -24,7 +25,7 @@ public class JDBCUtil {
 
 		try {
 			initDBConnections();
-
+			facultyList.remove(0);
 			for (Faculty faculty : facultyList) {
 				String queryString = "INSERT INTO cis_tce_dsce.faculty ( full_name, designation, education_qualification, experience, specialization, email, phone, salutation) "
 						+ "VALUES ('" + faculty.getName() + "', '" + faculty.getDesignation() + "','"
@@ -162,16 +163,16 @@ public class JDBCUtil {
 
 		for (int i = 0; i < 9;) {
 			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE00" + ++i + "', '"
-					+ PasswordHashingDemo.generateHash("1DS14TE00" + i) + "'); ";
+					+ PasswordHashingDemo.generateHash("1DS13TE00" + i) + "'); ";
 		}
 
 		for (int i = 9; i < 100;) {
 			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE0" + ++i + "', '"
-					+ PasswordHashingDemo.generateHash("1DS14TE0" + i) + "'); ";
+					+ PasswordHashingDemo.generateHash("1DS13TE0" + i) + "'); ";
 		}
 		for (int i = 99; i < 104;) {
 			queryList[i] = "INSERT INTO user (username, password) VALUES ('1DS13TE" + ++i + "', '"
-					+ PasswordHashingDemo.generateHash("1DS14TE" + i) + "'); ";
+					+ PasswordHashingDemo.generateHash("1DS13TE" + i) + "'); ";
 		}
 
 		for (String queryString : queryList) {
@@ -181,7 +182,7 @@ public class JDBCUtil {
 			try {
 				conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
 				stmt = conn.createStatement();
-				// stmt.executeUpdate(queryString);
+				stmt.executeUpdate(queryString);
 
 			} catch (SQLException se) {
 				se.printStackTrace();
@@ -221,6 +222,45 @@ public class JDBCUtil {
 
 			}
 
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (sqlStatement != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (dbConnection != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+
+	public void persistResearchData(List<Research> researchList) {
+
+		/*
+		 * Title Description ( about 100 to 300 words max) PI : Name and
+		 * designation Co PI : name and designation Funding agency and amount
+		 * Year : from and up to/ Status
+		 * 
+		 */
+		try {
+			initDBConnections();
+
+			for (Research research : researchList) {
+				String queryString = "INSERT INTO cis_tce_dsce.research ( title, description, pi_name_designation, co_pi_name_designation, "
+						+ "funding_agency_amount, start_year_end_year) " + "VALUES ('" + research.getTitle() + "', '"
+						+ research.getDescription() + "','" + research.getPiNameDesignation() + "','"
+						+ research.getCoPiNameDesignation() + "','" + research.getFundingAgencyAndAmount() + "','"
+						+ research.getStartYearEndYear() + "');";
+				// System.out.println(queryString);
+				sqlStatement.executeUpdate(queryString);
+			}
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {

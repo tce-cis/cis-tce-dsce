@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
+import org.dsce.tce.cis.bean.Research;
 import org.dsce.tce.cis.service.FacultyService;
 import org.dsce.tce.cis.service.impl.FacultyServiceImpl;
 
@@ -23,7 +24,7 @@ import com.google.gson.Gson;
  * 
  * @author Chetan Gorkal
  */
-@WebServlet(urlPatterns = { "/faculty", "/publication" })
+@WebServlet(urlPatterns = { "/faculty", "/publication", "/on_going_research" })
 public class FacultyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +49,7 @@ public class FacultyServlet extends HttpServlet {
 		try {
 
 			if (requestUrl.contains("faculty")) {
+				// Faculty list
 				logger.debug("Fetching faculty details.");
 				List<Faculty> facultyList = facultyService.getFacultyDetails();
 				logger.debug("Found " + facultyList.size() + " faculties");
@@ -55,21 +57,18 @@ public class FacultyServlet extends HttpServlet {
 				String facultyJson = new Gson().toJson(facultyList);
 				response.getWriter().write(facultyJson);
 			} else if (requestUrl.contains("publication")) {
-				// get publications of the faculty and students
+				// Publications
 				List<Publication> publicationList = facultyService.getPublications();
 				response.setContentType("application/json");
 				String publicationJson = new Gson().toJson(publicationList);
 				response.getWriter().write(publicationJson);
-			} /*
-				 * 
-				 * else if (requestUrl.contains("faculty_details")) { // get
-				 * publications of the faculty by id List<Publication>
-				 * publicationList = facultyService.getPublications();
-				 * response.setContentType("application/json"); String
-				 * publicationJson = new Gson().toJson(publicationList);
-				 * response.getWriter().write(publicationJson); }
-				 */
-
+			} else if (requestUrl.contains("on_going_research")) {
+				// Research on going
+				List<Research> researchList = facultyService.getResearchDetails();
+				response.setContentType("application/json");
+				String researchJson = new Gson().toJson(researchList);
+				response.getWriter().write(researchJson);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

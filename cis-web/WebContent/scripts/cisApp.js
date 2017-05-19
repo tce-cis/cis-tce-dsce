@@ -1,4 +1,4 @@
-var cisApp = angular.module('cisApp', [ "ngRoute" ]);
+var cisApp = angular.module('cisApp', [ "ngRoute", "ngCookies" ]);
 
 cisApp.config([ '$locationProvider', function($locationProvider) {
 	$locationProvider.hashPrefix('');
@@ -31,7 +31,8 @@ cisApp.config(function($routeProvider) {
 	}).when("/research_completed", {
 		templateUrl : "views/research_completed.html"
 	}).when("/research_on_going", {
-		templateUrl : "views/research_on_going.html"
+		templateUrl : "views/research_on_going.html",
+		controller:"ResearchController"
 	}).when("/feedback", {
 		templateUrl : "views/feedback.html",
 		controller : "FeedbackController"
@@ -43,13 +44,34 @@ cisApp.config(function($routeProvider) {
 	}).when("/placement_analysis", {
 		templateUrl : "views/placement_analysis.html"
 	}).when("/syllabus", {
-		templateUrl : "views/syllabus.html"
+		templateUrl : "views/syllabus.html",
+		controller : "SyllabusController"
+	}).when("/login", {
+		templateUrl : "views/login.html",
+		controller : "LoginController"
 	}).otherwise({
 		templateUrl : "views/about.html"
 	});
 });
 
-cisApp.controller('HomeController', function($scope, $http) {
+cisApp.controller('HomeController', function($scope, $http, $cookies) {
+
+	// console.log($cookies.get("JSESSIONID"));
+});
+
+cisApp.controller('LoginController', function($scope, $http, $cookies,
+		$location) {
+
+	$scope.login = function() {
+		$http.post('/cis-web/login', JSON.stringify($scope.loginForm)).then(
+				function(data, status, headers, config) {
+					var username = data.data;
+					$location.path("/");
+					$scope.message = "Welcome " + username;
+				}, function(data, status, headers, config) {
+				});
+	}
+
 });
 
 cisApp.controller('SubjectController', function($scope, $http) {
@@ -62,12 +84,36 @@ cisApp.controller('SubjectController', function($scope, $http) {
 	});
 
 });
+
+cisApp.controller('SyllabusController', function($scope, $http) {
+	$http({
+		method : 'GET',
+		url : '/cis-web/syllabus'
+	}).then(function(data, status, headers, config) {
+		$scope.units = data.data;
+	}, function(data, status, headers, config) {
+	});
+
+});
+
+
 cisApp.controller('CompanyController', function($scope, $http) {
 	$http({
 		method : 'GET',
 		url : '/cis-web/companies'
 	}).then(function(data, status, headers, config) {
 		$scope.companies = data.data;
+	}, function(data, status, headers, config) {
+	});
+
+});
+
+cisApp.controller('ResearchController', function($scope, $http) {
+	$http({
+		method : 'GET',
+		url : '/cis-web/on_going_research'
+	}).then(function(data, status, headers, config) {
+		$scope.researches = data.data;
 	}, function(data, status, headers, config) {
 	});
 
@@ -83,7 +129,8 @@ cisApp.controller('FacultyController', function($scope, $http) {
 				var facultyList = data.data;
 				for (var i = 0; i < facultyList.length; i++) {
 					var facultyName = facultyList[i].name;
-					facultyList[i].imageName = facultyName.trim().replace(/ /g, '_').toLowerCase()
+					facultyList[i].imageName = facultyName.trim().replace(/ /g,
+							'_').toLowerCase()
 							+ ".jpg";
 				}
 				$scope.faculties = facultyList;
@@ -100,13 +147,8 @@ cisApp.controller('FacultyController', function($scope, $http) {
 	}, function(data, status, headers, config) {
 	});
 
-	/*
-	 * $scope.getFacultyById = function() { $http({ method : 'GET', url :
-	 * 'cis-web/faculty_details?facultyId=' + $scope.facultyId
-	 * }).then(function(data, status, headers, config) { $scope.faculty =
-	 * data.data; }, function(data, status, headers, config) { }); }
-	 */
 });
+
 cisApp
 		.controller(
 				'FeedbackController',
@@ -139,7 +181,7 @@ cisApp
 										function(data, status, headers, config) {
 										});
 
-						$http({
+						/*$http({
 							method : 'POST',
 							url : '/cis-web/feedback',
 							data : {
@@ -156,6 +198,6 @@ cisApp
 										},
 										function(response, status, headers,
 												config) {
-										});
+										});*/
 					}
 				});
