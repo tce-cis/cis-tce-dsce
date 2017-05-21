@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.Research;
@@ -243,12 +244,6 @@ public class JDBCUtil {
 
 	public void persistResearchData(List<Research> researchList) {
 
-		/*
-		 * Title Description ( about 100 to 300 words max) PI : Name and
-		 * designation Co PI : name and designation Funding agency and amount
-		 * Year : from and up to/ Status
-		 * 
-		 */
 		try {
 			initDBConnections();
 
@@ -258,6 +253,37 @@ public class JDBCUtil {
 						+ research.getDescription() + "','" + research.getPiNameDesignation() + "','"
 						+ research.getCoPiNameDesignation() + "','" + research.getFundingAgencyAndAmount() + "','"
 						+ research.getStartYearEndYear() + "');";
+				// System.out.println(queryString);
+				sqlStatement.executeUpdate(queryString);
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (sqlStatement != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+			}
+			try {
+				if (dbConnection != null)
+					dbConnection.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+
+	public void persistCompanyData(List<Company> companyList) {
+
+		try {
+			initDBConnections();
+			companyList.remove(0);
+			for (Company company : companyList) {
+				String queryString = "INSERT INTO cis_tce_dsce.company ( name, no_offers, ctc, type) " + "VALUES ('"
+						+ company.getName() + "', '" + company.getNoOffers() + "','" + company.getCtc() + "','"
+						+ company.getCompanyType() + "');";
 				// System.out.println(queryString);
 				sqlStatement.executeUpdate(queryString);
 			}

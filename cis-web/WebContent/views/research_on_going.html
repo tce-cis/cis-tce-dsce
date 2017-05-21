@@ -1,28 +1,28 @@
 <div class="container" ng-controller="ResearchController">
-	<h1>On going research activities</h1>
+	<h1>On going research activities <small>Department of Telecommunication</small></h1>
 	<table class="table text-justify" ng-repeat="research in researches">
 		<tr>
-			<th class="col-lg-3">Title</th>
+			<th class="col-lg-4 lead">Title</th>
 			<td>{{ research.title }}</td>
 		<tr>
 		<tr>
-			<th>Description</th>
+			<th class="lead">Description</th>
 			<td>{{ research.description }}</td>
 		</tr>
 		<tr>
-			<th>PI : Name and designation</th>
+			<th class="lead">PI : Name and designation</th>
 			<td>{{ research.piNameDesignation }}</td>
 		</tr>
 		<tr>
-			<th>CO PI : Name and designation</th>
+			<th class="lead">CO PI : Name and designation</th>
 			<td>{{ research.coPiNameDesignation }}</td>
 		</tr>
 		<tr>
-			<th>Funding agency and amount</th>
+			<th class="lead">Funding agency and amount</th>
 			<td>{{ research.fundingAgencyAndAmount }}</td>
 		</tr>
 		<tr>
-			<th>Year : from and up to Status</th>
+			<th class="lead">Year : from and up to Status</th>
 			<td>{{ research.startYearEndYear }}</td>
 		</tr>
 	</table>

@@ -61,7 +61,7 @@ public class SubjectUnit {
 	}
 
 	public void setUnitDescription(String unitDescription) {
-		unitDescription = unitDescription;
+		this.unitDescription = unitDescription;
 	}
 
 	public String getUnitHours() {

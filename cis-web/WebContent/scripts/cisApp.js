@@ -56,7 +56,7 @@ cisApp.config(function($routeProvider) {
 		templateUrl : "views/login.html",
 		controller : "LoginController"
 	}).when("/logout", {
-		templateUrl : "views/logout.html",
+		templateUrl : "views/about.html",
 		controller : "LogoutController"
 	}).otherwise({
 		templateUrl : "views/about.html"

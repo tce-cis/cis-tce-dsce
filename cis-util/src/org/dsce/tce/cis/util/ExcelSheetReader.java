@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Faculty;
 import org.dsce.tce.cis.bean.Publication;
 import org.dsce.tce.cis.bean.Research;
@@ -70,10 +71,61 @@ public class ExcelSheetReader {
 		excelFilePath = "data/research.xlsx  ";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
+		// excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
+		excelFilePath = "data/placements.xlsx  ";
+		inputStream = new FileInputStream(new File(excelFilePath));
+		workbook = new XSSFWorkbook(inputStream);
+		excelReader.readCompanySheet(workbook.getSheetAt(0));
+		workbook.close();
+		inputStream.close();
+
+	}
+
+	private void readCompanySheet(Sheet placementsSheet) {
+		Iterator<Row> iterator = placementsSheet.iterator();
+		List<Company> companyList = new ArrayList<>();
+		int cellCount;
+		Company company = new Company();
+		while (iterator.hasNext()) {
+
+			cellCount = 1;
+
+			company = new Company();
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+
+			while (cellIterator.hasNext()) {
+
+				Cell cell = cellIterator.next();
+				cell.setCellType(Cell.CELL_TYPE_STRING);
+				switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_STRING:
+					switch (cellCount) {
+					case 1:
+						company.setName(cell.getStringCellValue().trim());
+						break;
+					case 2:
+						company.setNoOffers(Integer.parseInt(cell.getStringCellValue().trim()));
+						break;
+					case 3:
+						company.setCtc(Float.parseFloat(cell.getStringCellValue().trim()));
+						break;
+					case 4:
+						company.setCompanyType(cell.getStringCellValue().trim());
+						break;
+					}
+				default:
+					break;
+				}
+				cellCount++;
+			}
+			companyList.add(company);
+		}
+		// System.out.println(new Gson().toJson(researchList));
+		jdbcUtil.persistCompanyData(companyList);
 	}
 
 	private void readResearchDetailsSheet(Sheet researchSheet) {

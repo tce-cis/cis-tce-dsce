@@ -66,10 +66,11 @@ public class StudentDaoImpl implements StudentDao {
 		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
 		Statement stmt = conn.createStatement();
 
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Companies");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Company");
 		List<Company> companylist = new ArrayList<>();
 		while (rs.next()) {
-			Company company = new Company(rs.getString("company"));
+			Company company = new Company(rs.getString("name"), Integer.parseInt(rs.getString("no_offers")),
+					Float.parseFloat(rs.getString("ctc")), rs.getString("type"));
 			companylist.add(company);
 		}
 		return companylist;
