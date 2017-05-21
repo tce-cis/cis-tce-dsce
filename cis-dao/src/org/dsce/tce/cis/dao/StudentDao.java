@@ -46,7 +46,7 @@ public interface StudentDao {
 	 */
 	List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException;
 
-	List<SubjectScore> getResultsByUsn(String usn);
+	List<SubjectScore> getResultsByUsn(String usn) throws ClassNotFoundException, SQLException;
 
 	List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester);
 

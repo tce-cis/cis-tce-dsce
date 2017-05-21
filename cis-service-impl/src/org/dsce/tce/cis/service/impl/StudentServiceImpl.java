@@ -21,12 +21,13 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<SubjectScore> getResultsByUsn(String usn) {
+	public List<SubjectScore> getResultsByUsn(String usn) throws ClassNotFoundException, SQLException {
 		List<SubjectScore> results = studentDao.getResultsByUsn(usn);
 		return results;
 	}
 
 	@Override
+	@Deprecated
 	public List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester) {
 		List<SubjectScore> semesterResult = studentDao.getMarksCardByUsnAndSemester(usn, semester);
 		return semesterResult;

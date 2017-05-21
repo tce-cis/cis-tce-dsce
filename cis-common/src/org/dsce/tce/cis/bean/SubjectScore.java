@@ -7,6 +7,18 @@ public class SubjectScore {
 	private String internalMarks;
 	private String externalMarks;
 
+	public SubjectScore() {
+		super();
+	}
+
+	public SubjectScore(String subjectCode, String semesterNumber, String internalMarks, String externalMarks) {
+		super();
+		this.subjectCode = subjectCode;
+		this.semesterNumber = semesterNumber;
+		this.internalMarks = internalMarks;
+		this.externalMarks = externalMarks;
+	}
+
 	public String getSubjectCode() {
 		return subjectCode;
 	}

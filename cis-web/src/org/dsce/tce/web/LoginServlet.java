@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,20 +40,22 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String requestUrl = request.getServletPath();
 		if (requestUrl.contains("login")) {
-
-			request.getParameter("login");
 			BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 			String loginJson = br.readLine();
-
 			User user = new Gson().fromJson(loginJson, User.class);
 			LoginService loginService = new LoginServiceImpl();
 			boolean isAuthorized = loginService.authenticateUser(user);
 			if (isAuthorized) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("currentUser", user.getUsername());
+				response.addCookie(new Cookie("userName", user.getUsername()));
 			}
 		} else if (requestUrl.contains("logout")) {
 			request.getSession().invalidate();
+			Cookie ck = new Cookie("userName", "");
+			ck.setMaxAge(0);
+			response.addCookie(ck);
+
 		}
 
 	}

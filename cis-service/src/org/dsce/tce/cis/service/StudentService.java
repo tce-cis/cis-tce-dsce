@@ -17,8 +17,10 @@ public interface StudentService {
 	 * @param usn
 	 *            USN of the student
 	 * @return List<SubjectScore> results of the student
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	public List<SubjectScore> getResultsByUsn(String usn);
+	public List<SubjectScore> getResultsByUsn(String usn) throws ClassNotFoundException, SQLException;
 
 	/**
 	 * Method to obtain marks card of a student by semester and usn
@@ -29,6 +31,7 @@ public interface StudentService {
 	 *            Semester number
 	 * @return {@link SubjectScore} containing semester results
 	 */
+	@Deprecated
 	public List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester);
 
 	/**

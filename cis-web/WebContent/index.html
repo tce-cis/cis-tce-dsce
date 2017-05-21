@@ -24,9 +24,9 @@
 <script src="node_modules/angular-cookies/angular-cookies.js"></script>
 <script src="scripts/cisApp.js"></script>
 </head>
-<body style="padding-top: 130px">
+<body style="padding-top: 70px">
 	<div ng-app="cisApp" ng-controller="HomeController">
-		<nav class="navbar navbar-default navbar-fixed-top"
+		<nav class="navbar navbar-default navbar-fixed-top nav-justified"
 			style="background-color: lightseagreen">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -38,8 +38,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand text-center" href="#about"><strong>Department
-							of Telecommunication</strong></a>
+					<a class="navbar-brand text-center" href="#about"><strong>Telecommunication</strong></a>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,18 +53,9 @@
 								<li><a href="#program_outcomes">Program Outcomes</a></li>
 								<li><a href="#pso">PSO</a></li>
 							</ul></li>
-						<!-- 						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Achievements <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#red">Faculty centric</a></li>
-								<li><a href="Student_centric_achievements.html">Student
-										centric</a></li>
-							</ul></li>
- -->
 						<li class="dropdown"><a href="" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Academics</font></strong><span
+							aria-expanded="false"><strong><font color=white>Results</font></strong><span
 								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#student_details">UG</a></li>
@@ -89,14 +79,9 @@
 								<li><a href="#semester_result">Sem4</a></li>
 
 							</ul></li>
-						<li class="dropdown"><a href="" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>People</font></strong><span
-								class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#faculty" ng-click="getFacultyDetails()">Faculty</a></li>
-								<li><a href="#faculty_profile">Faculty Profiles</a></li>
-							</ul></li>
+
+						<li><a href="#faculty" ng-click="getFacultyDetails()"><strong><font
+									color=white>Faculty</font></strong></a></li>
 
 
 						<li class="dropdown"><a href="" class="dropdown-toggle"
@@ -118,26 +103,14 @@
 								<li><a href="#syllabus">Syllabus</a></li>
 							</ul></li>
 
-						<li class="dropdown"><a href="" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Result
-										Analysis</font></strong><span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#sem_result_analysis">Semester wise</a></li>
-							</ul></li>
-
-						<li class="dropdown"><a href="" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false"><strong><font color=white>Placements</font></strong><span
-								class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#companies">List of Companies</a></li>
-								<li><a href="#placement_analysis">Placement Analysis</a></li>
-							</ul></li>
-
+						<li><a href="#companies"><strong><font
+									color=white>Placements</font></strong></a></li>
 						<li><a href="#events"><strong><font color=white>Events</font></strong></a></li>
-						<li><a href="#login"><strong><font color=white>Login</font></strong></a></li>
-						<li class=""><a href="#feedback"><strong><font
+						<li ng-hide="userName"><a href="#login"><strong><font
+									color=white>Login</font></strong></a></li>
+						<li ng-show="userName"><a href="#logout"><strong><font
+									color=white>Logout</font></strong></a></li>
+						<li ng-show="userName"><a href="#feedback"><strong><font
 									color=white>Feedback</font></strong></a></li>
 					</ul>
 				</div>

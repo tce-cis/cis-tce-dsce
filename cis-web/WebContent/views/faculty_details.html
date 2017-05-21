@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="FacultyController">
 
 	<div class="page-header col-lg-6">
 		<h1>
@@ -33,7 +33,7 @@
 				<strong>Phone</strong> {{ faculty.phoneNumber }}
 			</p>
 			<p>
-				<a class="btn btn-secondary" href="#" role="button">View details
+				<a class="btn btn-secondary" href="#faculty_profile" ng-click="viewFacultyDetails(faculty)" role="button">View details
 					>> </a>
 			</p>
 		</div>

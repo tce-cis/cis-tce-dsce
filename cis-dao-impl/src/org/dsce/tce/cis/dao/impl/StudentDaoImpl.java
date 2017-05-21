@@ -101,9 +101,21 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public List<SubjectScore> getResultsByUsn(String usn) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SubjectScore> getResultsByUsn(String usn) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(CisConstants.DB_URL, CisConstants.USER, CisConstants.PASS);
+		Statement stmt = conn.createStatement();
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM cis_tce_dsce.results where usn='" + usn + "';");
+		List<SubjectScore> subjectScoreList = new ArrayList<>();
+
+		while (rs.next()) {
+
+			SubjectScore subjectScore = new SubjectScore(rs.getString("subject_code"), rs.getString("semester_number"),
+					rs.getString("internal_marks"), rs.getString("external_marks"));
+			subjectScoreList.add(subjectScore);
+		}
+		return subjectScoreList;
 	}
 
 	@Override

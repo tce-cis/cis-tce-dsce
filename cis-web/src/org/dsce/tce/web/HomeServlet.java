@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.dsce.tce.cis.bean.Company;
 import org.dsce.tce.cis.bean.Subject;
-import org.dsce.tce.cis.bean.SubjectScore;
 import org.dsce.tce.cis.service.StudentService;
 import org.dsce.tce.cis.service.impl.StudentServiceImpl;
 
@@ -24,7 +23,7 @@ import com.google.gson.Gson;
  * 
  * @author Asha R
  */
-@WebServlet(urlPatterns = { "/subjects", "/companies", "/results" })
+@WebServlet(urlPatterns = { "/subjects", "/companies" })
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,16 +53,6 @@ public class HomeServlet extends HttpServlet {
 
 				logger.debug("Fetching list of companies.");
 				List<Company> companyList = service.getCompaniesList();
-				logger.debug("Found " + companyList.size() + " companies.");
-				resp.setContentType("application/json");
-				String companyJson = new Gson().toJson(companyList);
-				resp.getWriter().write(companyJson);
-
-			} else if (req.getServletPath().contains("results")) {
-
-				logger.debug("Fetching list of companies.");
-				String usn = (String) req.getSession(false).getAttribute("currentUser");
-				List<SubjectScore> companyList = service.getResultsByUsn(usn);
 				logger.debug("Found " + companyList.size() + " companies.");
 				resp.setContentType("application/json");
 				String companyJson = new Gson().toJson(companyList);

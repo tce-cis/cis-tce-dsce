@@ -1,46 +1,28 @@
-<div class="container">
+<div class="container" ng-hide="userName">
+<h2>Please login to view your semester results</h2>
+</div>
+<div class="container" ng-controller="ResultsController" ng-show="userName">
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
 		<div class="panel-heading ">
-			<h3>Semester results of USN: 1DS14TC100</h3>
+			<h3>Semester results of USN: {{userName}}</h3>
 		</div>
 		<div class="panel-body">
 			<table class="table table-striped table-bordered">
 				<tr>
-					<th><strong>SUBJECT NAME</strong></th>
-					<th>MARKS OBTAINED</th>
+					<th>Semester</th>
+					<th><strong>Subject Code</strong></th>
+					<th>Internal Marks</th>
+					<th>External Marks</th>
+					<th>Total Marks</th>
 				</tr>
-				<tr>
-					<td><strong>ENGINEERING MATHEMATICS - III </strong></td>
-					<td>90</td>
-				</tr>
-				<tr>
-					<td><strong>ANALOG ELECTRONIC CIRCUITS </strong></td>
-					<td>95</td>
-				</tr>
-				<tr>
-					<td><strong>LOGIC DESIGN</strong></td>
-					<td>94</td>
-				</tr>
-				<tr>
-					<td><strong>NETWORK ANALYSIS</strong></td>
-					<td>89</td>
-				</tr>
-				<tr>
-					<td><strong>ELECTRONIC INSTRUMENTATION</strong></td>
-					<td>88</td>
-				</tr>
-				<tr>
-					<td><strong>FIELD THEORY</strong></td>
-					<td>78</td>
-				</tr>
-				<tr>
-					<td><strong> ANALOG ELECTRONICS LAB </strong></td>
-					<td>78</td>
-				</tr>
-				<tr>
-					<td><strong>LOGIC DESIGN LAB </strong></td>
-					<td>78</td>
+
+				<tr ng-repeat="result in results">
+					<td>{{result.semesterNumber}}</td>
+					<td>{{result.subjectCode}}</td>
+					<td>{{result.internalMarks}}</td>
+					<td>{{result.externalMarks}}</td>
+					<td>{{result.toalMarks}}</td>
 				</tr>
 			</table>
 			<div class="alert alert-warning" role="alert">In case of

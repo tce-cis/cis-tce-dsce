@@ -2,14 +2,8 @@
 
 	<div class="page-header col-lg-6">
 		<h1>
-			Syllabus <small>Telecom Department</small>
+			Syllabus <small>Telecommunication Department</small>
 		</h1>
-	</div>
-	<div class="input-group input-group-lg">
-		<span class="input-group-addon" id="sizing-addon1">Search
-			Subject name</span> <input type="text" class="form-control"
-			placeholder="Enter the subject name" aria-describedby="sizing-addon1"
-			ng-model='name'>
 	</div>
 
 	<div>
@@ -23,12 +17,12 @@
 					<th>Description</th>
 					<th>Teaching Hours</th>
 				</tr>
-				<tr ng-repeat="unit in units | filter: name">
+				<tr ng-repeat="unit in units | filter: name" class="text-center">
 					<td>{{ unit.subjectCode }}</td>
 					<td>{{ unit.part }}</td>
 					<td>{{ unit.unit }}</td>
-					<td>{{ unit.unitTitle }}</td>
-					<td>{{ unit.unitDesciption }}</td>
+					<td class="col-lg-2 text-left">{{ unit.unitTitle }}</td>
+					<td class="col-lg-6 text-justify">{{ unit.unitDescription }}</td>
 					<td>{{ unit.unitHours }}</td>
 
 				</tr>
