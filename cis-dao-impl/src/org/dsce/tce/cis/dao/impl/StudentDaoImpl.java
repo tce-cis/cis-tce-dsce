@@ -16,6 +16,12 @@ import org.dsce.tce.cis.bean.SubjectUnit;
 import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.StudentDao;
 
+/**
+ * DAO implementation for Student services
+ * 
+ * @author Chetan Gorkal
+ *
+ */
 public class StudentDaoImpl implements StudentDao {
 
 	@Override

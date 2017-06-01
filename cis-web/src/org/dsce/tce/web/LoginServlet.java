@@ -19,7 +19,10 @@ import org.dsce.tce.cis.service.impl.LoginServiceImpl;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet for user login and logout
+ * 
+ * @author Chetan Gorkal
+ *
  */
 @WebServlet(urlPatterns = { "/login", "/logout" })
 public class LoginServlet extends HttpServlet {
@@ -33,10 +36,10 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String requestUrl = request.getServletPath();
 		if (requestUrl.contains("login")) {
@@ -52,21 +55,10 @@ public class LoginServlet extends HttpServlet {
 			}
 		} else if (requestUrl.contains("logout")) {
 			request.getSession().invalidate();
-			Cookie ck = new Cookie("userName", "");
-			ck.setMaxAge(0);
-			response.addCookie(ck);
-
+			Cookie userNameCookie = new Cookie("userName", "");
+			userNameCookie.setMaxAge(0);
+			response.addCookie(userNameCookie);
 		}
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

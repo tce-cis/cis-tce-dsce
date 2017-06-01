@@ -34,21 +34,21 @@ public class ExcelSheetReader {
 		String excelFilePath = "data/faculty_details.xlsx";
 		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 		Workbook workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
+		excelReader.readFacultyDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
 		excelFilePath = "data/faculty_details.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readPublicationSheet(workbook.getSheetAt(1));
+		excelReader.readPublicationSheet(workbook.getSheetAt(1));
 		workbook.close();
 		inputStream.close();
 
 		excelFilePath = "data/subjects.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readSubjectDetails(workbook.getSheetAt(0));
+		excelReader.readSubjectDetails(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
@@ -56,7 +56,7 @@ public class ExcelSheetReader {
 		inputStream = new FileInputStream(new File(excelFilePath));
 
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readSubjectUnitsSheet(workbook.getSheetAt(1));
+		excelReader.readSubjectUnitsSheet(workbook.getSheetAt(1));
 		// for (int i = 1; i < workbook.getNumberOfSheets(); i++) { }
 		workbook.close();
 		inputStream.close();
@@ -64,14 +64,14 @@ public class ExcelSheetReader {
 		excelFilePath = "data/results.xlsx";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readResultsSheet(workbook.getSheetAt(0));
+		excelReader.readResultsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
 		excelFilePath = "data/research.xlsx  ";
 		inputStream = new FileInputStream(new File(excelFilePath));
 		workbook = new XSSFWorkbook(inputStream);
-		// excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
+		excelReader.readResearchDetailsSheet(workbook.getSheetAt(0));
 		workbook.close();
 		inputStream.close();
 
@@ -231,6 +231,10 @@ public class ExcelSheetReader {
 		jdbcUtil.persistFacultyData(facultyList);
 	}
 
+	/**
+	 * @author Chetan Gorkal
+	 * @param publicationsSheet
+	 */
 	private void readPublicationSheet(Sheet publicationsSheet) {
 		Iterator<Row> iterator = publicationsSheet.iterator();
 		List<Publication> publicationList = new ArrayList<>();
@@ -272,6 +276,10 @@ public class ExcelSheetReader {
 		jdbcUtil.persistPublicationData(publicationList);
 	}
 
+	/**
+	 * @author Asha R Adiga
+	 * @param subjectSheet
+	 */
 	private void readSubjectDetails(Sheet subjectSheet) {
 		Iterator<Row> iterator = subjectSheet.iterator();
 		List<Subject> subjectlist = new ArrayList<>();

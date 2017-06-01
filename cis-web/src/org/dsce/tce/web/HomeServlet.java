@@ -19,9 +19,10 @@ import org.dsce.tce.cis.service.impl.StudentServiceImpl;
 import com.google.gson.Gson;
 
 /**
- * Servlet for common functionalities
+ * Servlet for functionalities common to students and faculty
  * 
  * @author Asha R
+ * @author Chetan Gorkal
  */
 @WebServlet(urlPatterns = { "/subjects", "/companies" })
 public class HomeServlet extends HttpServlet {
@@ -41,7 +42,6 @@ public class HomeServlet extends HttpServlet {
 		StudentService service = new StudentServiceImpl();
 		try {
 			if (req.getServletPath().contains("subjects")) {
-
 				logger.debug("Fetching list of subjects.");
 				List<Subject> subjectList = service.getSubjects();
 				logger.debug("Found " + subjectList.size() + " subjects.");
@@ -50,16 +50,13 @@ public class HomeServlet extends HttpServlet {
 				resp.getWriter().write(subjectJson);
 
 			} else if (req.getServletPath().contains("companies")) {
-
 				logger.debug("Fetching list of companies.");
 				List<Company> companyList = service.getCompaniesList();
 				logger.debug("Found " + companyList.size() + " companies.");
 				resp.setContentType("application/json");
 				String companyJson = new Gson().toJson(companyList);
 				resp.getWriter().write(companyJson);
-
 			}
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

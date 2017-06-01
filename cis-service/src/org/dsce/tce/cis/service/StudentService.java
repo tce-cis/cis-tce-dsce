@@ -9,6 +9,12 @@ import org.dsce.tce.cis.bean.Subject;
 import org.dsce.tce.cis.bean.SubjectScore;
 import org.dsce.tce.cis.bean.SubjectUnit;;
 
+/**
+ * Service interface for student functionalities
+ * 
+ * @author Chetan Gorkal
+ *
+ */
 public interface StudentService {
 
 	/**
@@ -38,13 +44,37 @@ public interface StudentService {
 	 * Method to save feedback submitted by a student.
 	 * 
 	 * @param feedbackReceived
+	 *            {@link Feedback} instance containing feedback data submitted
+	 *            by the logged in user.
 	 */
 	public void saveFeedback(Feedback feedbackReceived);
 
+	/**
+	 * Method to get subjects being taught in the department
+	 * 
+	 * @author Ankitha Venkatesh
+	 * @return {@link List} of {@link Subject} giving list of subjects
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<Subject> getSubjects() throws ClassNotFoundException, SQLException;
 
+	/**
+	 * Method to obtain syllabus of subjects
+	 * 
+	 * @return List<SubjectUnit>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException;
 
+	/**
+	 * Method to obtain list of companies visiting campus for recruitment
+	 * 
+	 * @return List<Company>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<Company> getCompaniesList() throws ClassNotFoundException, SQLException;
 
 }

@@ -5,6 +5,12 @@ import org.dsce.tce.cis.dao.LoginDao;
 import org.dsce.tce.cis.dao.impl.LoginDaoImpl;
 import org.dsce.tce.cis.service.LoginService;
 
+/**
+ * Service class for user authentication
+ * 
+ * @author Chetan Gorkal
+ *
+ */
 public class LoginServiceImpl implements LoginService {
 
 	LoginDao loginDao;

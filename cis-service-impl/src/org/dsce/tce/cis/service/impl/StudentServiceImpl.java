@@ -12,6 +12,12 @@ import org.dsce.tce.cis.dao.StudentDao;
 import org.dsce.tce.cis.dao.impl.StudentDaoImpl;
 import org.dsce.tce.cis.service.StudentService;
 
+/**
+ * Service implementation for student functionalities
+ * 
+ * @author Chetan Gorkal
+ *
+ */
 public class StudentServiceImpl implements StudentService {
 
 	private StudentDao studentDao;

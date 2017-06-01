@@ -9,6 +9,12 @@ import java.sql.Statement;
 import org.dsce.tce.cis.common.CisConstants;
 import org.dsce.tce.cis.dao.LoginDao;
 
+/**
+ * Implementation class to authenticate user.
+ * 
+ * @author Chetan Gorkal
+ *
+ */
 public class LoginDaoImpl implements LoginDao {
 
 	@Override

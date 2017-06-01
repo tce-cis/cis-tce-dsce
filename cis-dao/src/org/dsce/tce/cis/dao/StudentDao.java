@@ -10,8 +10,9 @@ import org.dsce.tce.cis.bean.SubjectScore;
 import org.dsce.tce.cis.bean.SubjectUnit;
 
 /**
+ * DAO interface for student services.
  * 
- * @author CHETAN
+ * @author Chetan Gorkal
  *
  */
 public interface StudentDao {
@@ -46,8 +47,18 @@ public interface StudentDao {
 	 */
 	List<SubjectUnit> getSubjectUnits() throws ClassNotFoundException, SQLException;
 
+	/**
+	 * Method to obtain results of the logged in user.
+	 * 
+	 * @param usn
+	 *            USN of the student
+	 * @return List<SubjectScore> Semester results of the student
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	List<SubjectScore> getResultsByUsn(String usn) throws ClassNotFoundException, SQLException;
 
+	@Deprecated
 	List<SubjectScore> getMarksCardByUsnAndSemester(String usn, byte semester);
 
 }
